@@ -272,4 +272,5 @@ window.userContextMenu = function(selector, id, name) {
         animation: { duration: 175, show: 'fadeIn', hide: 'fadeOut' }
     });
 };
-},1000);
+},100);
+// More stuff i'll add in so it doesn't quickly become snca.
