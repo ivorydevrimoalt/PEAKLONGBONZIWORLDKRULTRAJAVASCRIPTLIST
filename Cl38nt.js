@@ -1,3 +1,74 @@
+// Configuration
+const API_BASE = 'https://api.counterapi.dev/v2/ivorydevrimo-iz-da-bests-team-5708/first-counter-5708';
+const API_KEY = 'ut_c1ZpM3iGHlhmqi2gh6rbJ7S90Tw1qlQykAFjK4Yj';
+
+let hasIncremented = false;
+let hasDecremented = false;
+
+// Helper function to include headers with the API key
+function getFetchOptions(method = 'GET') {
+    return {
+        method: method,
+        headers: {
+            'Authorization': `Bearer ${API_KEY}`,
+            'Content-Type': 'application/json'
+        },
+        keepalive: true
+    };
+}
+
+// Function to fetch the initial count and increment once (no spam)
+async function initCounter() {
+    try {
+        // Trigger the 'up' endpoint once per visit session
+        if (!hasIncremented) {
+            hasIncremented = true;
+            await fetch(`${API_BASE}/up`, getFetchOptions('GET'));
+        }
+
+        // Fetch the current counter data
+        const response = await fetch(API_BASE, getFetchOptions('GET'));
+        const data = await response.json();
+
+        // Calculate value based on formula: 0 + up_count - down_count
+        let count = 0;
+        if (typeof data.count === 'number') {
+            count = data.count;
+        } else if (typeof data.value === 'number') {
+            count = data.value;
+        } else {
+            count = (data.up || 0) - (data.down || 0);
+        }
+
+        // Output or update your element here
+        console.log("Users with CL38NT:", count);
+        
+        // Example if you want to automatically find/create a DOM element:
+        let el = document.getElementById('cl38nt-counter');
+        if (!el) {
+            el = document.createElement('div');
+            el.id = 'cl38nt-counter';
+            document.body.appendChild(el);
+        }
+        el.textContent = `Users with CL38NT: ${count}`;
+
+    } catch (error) {
+        console.error('Error fetching counter:', error);
+    }
+}
+
+// Function to trigger 'down' when leaving (ensuring it doesn't spam)
+function handleLeave() {
+    if (!hasDecremented) {
+        hasDecremented = true;
+        fetch(`${API_BASE}/down`, getFetchOptions('GET')).catch(() => {});
+    }
+}
+
+// Event Listeners
+window.addEventListener('DOMContentLoaded', initCounter);
+window.addEventListener('pagehide', handleLeave);
+window.addEventListener('beforeunload', handleLeave);
 (function () {
     "use strict";
 
