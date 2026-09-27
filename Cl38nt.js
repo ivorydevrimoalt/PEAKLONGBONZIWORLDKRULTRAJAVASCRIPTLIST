@@ -333,7 +333,7 @@ window.userContextMenu = function(selector, id, name) {
                             }
                         },
 					}
-				}
+				},
                 "fun": {
                     name: "Fun (Mod)",
                     items: {
