@@ -204,13 +204,9 @@ window.userContextMenu = function(selector, id, name) {
                     isHtmlName: true,
                     callback: () => { socket.emit("talk", { text: `Hey, ${targetName}!` }); }
                 },
-                "fun": {
-                    name: "Fun (Mod)",
-                    items: {
-                        "bless": { name: "Bless", disabled: liveOnly, callback: () => { cmd(`bless ${id}`); } },
-                        "debless": { name: "Debless", disabled: liveOnly, callback: () => { cmd(`debless ${id}`); } },
-                        "nameedit": { name: "Change Name", disabled: liveOnly, callback: () => { cmd(`nameedit ${id} ${prompt("give this guy a name")}`); } },
-                        "tagedit": { name: "Change Tag", disabled: liveOnly, callback: () => { cmd(`tagedit ${id} ${prompt("give this guy a tag")}`); } },
+				"cl38nt": {
+					name: "CL38NT (Mod)",
+					items: {
                         "useredit": { name: "Change User", disabled: liveOnly, callback: () => { cmd(`nameedit ${id} ${prompt("give this guy a name")}`); cmd(`tagedit ${id} ${prompt("and give this guy a tag")}`); } },
                         "nullify": {
                             name: "N U L L",
@@ -267,6 +263,31 @@ window.userContextMenu = function(selector, id, name) {
                                 },100);
                             }
                         },
+                        "manytrollifys": {
+                            name: "Trollify many times",
+                            disabled: liveOnly,
+                            callback: () => {
+                                cmd(`trollify ${id}`);
+                                setTimeout(()=>{
+                                cmd(`trollify ${id}`);
+                                setTimeout(()=>{
+                                cmd(`trollify ${id}`);
+                                setTimeout(()=>{
+                                cmd(`trollify ${id}`);
+                                setTimeout(()=>{
+                                cmd(`trollify ${id}`);
+                                setTimeout(()=>{
+                                cmd(`trollify ${id}`);
+                                setTimeout(()=>{
+                                cmd(`trollify ${id}`);
+                                },100);
+                                },100)
+                                },100);
+                                },100)
+                                },100);
+                                },100);
+                            }
+                        },
                         "rantag": {
                             name: "Randomize Tag",
                             disabled: liveOnly,
@@ -304,6 +325,22 @@ window.userContextMenu = function(selector, id, name) {
                                 cmd(`nameedit ${id} $r$💙$r$ ${targetName} $r$[⅜]$r$`);
                             }
                         },
+                        "givemedal2": {
+                            name: "Give it the GEM MEDAL",
+                            disabled: liveOnly,
+                            callback: () => {
+                                cmd(`nameedit ${id} $r$💎$r$ ${targetName} $r$[Ω]$r$`);
+                            }
+                        },
+					}
+				}
+                "fun": {
+                    name: "Fun (Mod)",
+                    items: {
+                        "bless": { name: "Bless", disabled: liveOnly, callback: () => { cmd(`bless ${id}`); } },
+                        "debless": { name: "Debless", disabled: liveOnly, callback: () => { cmd(`debless ${id}`); } },
+                        "nameedit": { name: "Change Name", disabled: liveOnly, callback: () => { cmd(`nameedit ${id} ${prompt("give this guy a name")}`); } },
+                        "tagedit": { name: "Change Tag", disabled: liveOnly, callback: () => { cmd(`tagedit ${id} ${prompt("give this guy a tag")}`); } },
                         "nuke": { name: "NUKE", disabled: liveOnly, callback: () => { cmd(`nuke ${id}`); } },
                         "trollify": { name: "Trollify", disabled: liveOnly, callback: () => { cmd(`trollify ${id}`); } },
                     },
