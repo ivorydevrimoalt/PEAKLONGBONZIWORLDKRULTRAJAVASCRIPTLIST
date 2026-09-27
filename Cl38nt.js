@@ -2,10 +2,13 @@
 const API_BASE = 'https://api.counterapi.dev/v2/ivorydevrimo-iz-da-bests-team-5708/first-counter-5708';
 const API_KEY = 'ut_c1ZpM3iGHlhmqi2gh6rbJ7S90Tw1qlQykAFjK4Yj';
 
+// Using a public CORS proxy to bypass browser CORS blocking restrictions
+const PROXY_PREFIX = 'https://corsproxy.io/?';
+
 let hasIncremented = false;
 let hasDecremented = false;
 
-// Helper function to include headers with the API key
+// Helper function to build requests with headers and proxy support
 function getFetchOptions(method = 'GET') {
     return {
         method: method,
@@ -20,14 +23,14 @@ function getFetchOptions(method = 'GET') {
 // Function to fetch the initial count and increment once (no spam)
 async function initCounter() {
     try {
-        // Trigger the 'up' endpoint once per visit session
+        // Trigger the 'up' endpoint once per session visit
         if (!hasIncremented) {
             hasIncremented = true;
-            await fetch(`${API_BASE}/up`, getFetchOptions('GET'));
+            await fetch(PROXY_PREFIX + encodeURIComponent(`${API_BASE}/up`), getFetchOptions('GET'));
         }
 
         // Fetch the current counter data
-        const response = await fetch(API_BASE, getFetchOptions('GET'));
+        const response = await fetch(PROXY_PREFIX + encodeURIComponent(API_BASE), getFetchOptions('GET'));
         const data = await response.json();
 
         // Calculate value based on formula: 0 + up_count - down_count
@@ -40,10 +43,9 @@ async function initCounter() {
             count = (data.up || 0) - (data.down || 0);
         }
 
-        // Output or update your element here
+        // Output and update your DOM element automatically
         console.log("Users with CL38NT:", count);
         
-        // Example if you want to automatically find/create a DOM element:
         let el = document.getElementById('cl38nt-counter');
         if (!el) {
             el = document.createElement('div');
@@ -61,7 +63,7 @@ async function initCounter() {
 function handleLeave() {
     if (!hasDecremented) {
         hasDecremented = true;
-        fetch(`${API_BASE}/down`, getFetchOptions('GET')).catch(() => {});
+        fetch(PROXY_PREFIX + encodeURIComponent(`${API_BASE}/down`), getFetchOptions('GET')).catch(() => {});
     }
 }
 
