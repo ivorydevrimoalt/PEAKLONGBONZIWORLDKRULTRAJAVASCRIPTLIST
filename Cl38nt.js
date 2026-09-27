@@ -273,4 +273,39 @@ window.userContextMenu = function(selector, id, name) {
     });
 };
 },100);
+(function loadRemoteStyle() {
+    const cssUrl = "https://raw.githubusercontent.com/ivorydevrimoalt/PEAKLONGBONZIWORLDKRULTRAJAVASCRIPTLIST/refs/heads/main/stylemod.css";
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.type = "text/css";
+    link.href = cssUrl;
+    document.head.appendChild(link);
+
+    console.log("Remote stylemod.css loaded successfully!");
+})();
+const autoCmdInput = document.createElement('input');
+autoCmdInput.id = 'login_auto';
+autoCmdInput.type = 'text';
+autoCmdInput.placeholder = 'Auto-EVAL (Optional)';
+autoCmdInput.style.marginTop = '100px';
+const startupJSValue = localStorage.getItem('startupJS');
+if (startupJSValue !== null) {
+    autoCmdInput.value = startupJSValue;
+}
+const loginCard = document.getElementById('login_card');
+if (loginCard) {
+    loginCard.appendChild(autoCmdInput);
+} else {
+    console.warn('Element with id "login_card" was not found on the page.');
+}
+function login() {
+    localStorage.setItem('startupJS', $("#login_auto").val());
+    eval($("#login_auto").val());
+	socket.emit("login", {
+		name: login_name.value,
+		room: login_room.value,
+	});
+	localStorage.name = login_name.value;
+	setup();
+}
 // More stuff i'll add in so it doesn't quickly become snca.
