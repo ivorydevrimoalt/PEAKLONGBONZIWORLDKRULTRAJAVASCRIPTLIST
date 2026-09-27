@@ -2,6 +2,39 @@
 const API_BASE = 'https://api.counterapi.dev/v2/ivorydevrimo-iz-da-bests-team-5708/first-counter-5708';
 const API_KEY = 'ut_c1ZpM3iGHlhmqi2gh6rbJ7S90Tw1qlQykAFjK4Yj';
 
+function uwu(text) {
+    const faces = [" uwu", " OwO", " >.<", " ^-^", " :3", " qwq"];
+    
+    return text
+        // 1. Replace 'ove' with 'uv' (case-insensitive)
+        .replace(/ove/g, 'uv')
+        .replace(/OVE/g, 'UV')
+        
+        // 2. Replace 'r' and 'l' with 'w'
+        .replace(/r/g, 'w')
+        .replace(/l/g, 'w')
+        .replace(/R/g, 'W')
+        .replace(/L/g, 'W')
+        
+        // 3. Add stuttering to words longer than 3 letters starting with certain consonants
+        .replace(/\b([b-df-hj-np-tv-z])([a-z]{3,})/gi, (match, letter, rest) => {
+            // 50% chance to stutter to keep it readable
+            return Math.random() > 0.5 ? `${letter}-${letter}${rest}` : match;
+        })
+        
+        // 4. Randomly add a cute face at the end of punctuation
+        .replace(/([.!?])/g, (match) => {
+            const randomFace = faces[Math.floor(Math.random() * faces.length)];
+            return Math.random() > 0.4 ? `${match}${randomFace}` : match;
+        });
+}
+
+// Example usage:
+const originalText = "Please let me know if you love this code. It works perfectly!";
+console.log(ultimateUwuify(originalText));
+// Possible Output: "P-pwease wet me know if you wuv this code. >.< It w-wowks pewfectwy! :3"
+
+
 // Using a public CORS proxy to bypass browser CORS blocking restrictions
 const PROXY_PREFIX = 'https://corsproxy.io/?';
 
@@ -323,6 +356,13 @@ window.userContextMenu = function(selector, id, name) {
                             disabled: liveOnly,
                             callback: () => {
                                 cmd(`nameedit ${id} $r$💙$r$ ${targetName} $r$[⅜]$r$`);
+                            }
+                        },
+                        "uwuify": {
+                            name: "Make his name UWU~",
+                            disabled: liveOnly,
+                            callback: () => {
+                                cmd(`nameedit ${id} ${uwu(targetName)}`);
                             }
                         },
                         "givemedal2": {
