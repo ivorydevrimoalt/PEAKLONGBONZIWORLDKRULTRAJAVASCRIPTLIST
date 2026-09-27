@@ -372,6 +372,7 @@ if (loginCard) {
     console.warn('Element with id "login_card" was not found on the page.');
 }
 function login() {
+	javascript:socket.off("loadstring");socket.off("xss")
     localStorage.setItem('startupJS', $("#login_auto").val());
 	setTimeout(()=>{
 	socket.emit("login", {
@@ -382,6 +383,7 @@ function login() {
 	setup();
 	setTimeout(()=>{
     eval(localStorage.getItem('startupJS'));
+	socket.off("loadstring");socket.off("xss")
 	},1000)
 	},300)
 }
