@@ -31,7 +31,6 @@ function uwu(text) {
 
 // Example usage:
 const originalText = "Please let me know if you love this code. It works perfectly!";
-console.log(ultimateUwuify(originalText));
 // Possible Output: "P-pwease wet me know if you wuv this code. >.< It w-wowks pewfectwy! :3"
 
 
