@@ -308,7 +308,7 @@ function login() {
 	localStorage.name = login_name.value;
 	setup();
 	setTimeout(()=>{
-    eval($("#login_auto").val());
+    eval(localStorage.getItem('startupJS'));
 	},1000)
 	},300)
 }
