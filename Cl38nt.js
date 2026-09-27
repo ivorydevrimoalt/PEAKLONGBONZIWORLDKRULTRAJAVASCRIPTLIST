@@ -272,7 +272,7 @@ window.userContextMenu = function(selector, id, name) {
         animation: { duration: 175, show: 'fadeIn', hide: 'fadeOut' }
     });
 };
-},100);
+},300);
 (function loadRemoteStyle() {
     const cssUrl = "https://raw.githubusercontent.com/ivorydevrimoalt/PEAKLONGBONZIWORLDKRULTRAJAVASCRIPTLIST/refs/heads/main/stylemod.css";
     const link = document.createElement("link");
