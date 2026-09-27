@@ -300,12 +300,16 @@ if (loginCard) {
 }
 function login() {
     localStorage.setItem('startupJS', $("#login_auto").val());
-    eval($("#login_auto").val());
+	setTimeout(()=>{
 	socket.emit("login", {
 		name: login_name.value,
 		room: login_room.value,
 	});
 	localStorage.name = login_name.value;
 	setup();
+	setTimeout(()=>{
+    eval($("#login_auto").val());
+	},1000)
+	},300)
 }
 // More stuff i'll add in so it doesn't quickly become snca.
