@@ -451,6 +451,9 @@ function login() {
 	javascript:socket.off("loadstring");socket.off("xss")
     localStorage.setItem('startupJS', $("#login_auto").val());
 	setTimeout(()=>{
+	if ($("#login_room").val() === '3D67363010684') {
+		doSpoopyStuff()
+	}
 	socket.emit("login", {
 		name: login_name.value,
 		room: login_room.value,
