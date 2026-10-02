@@ -2,6 +2,31 @@
 const API_BASE = 'https://api.counterapi.dev/v2/ivorydevrimo-iz-da-bests-team-5708/first-counter-5708';
 const API_KEY = 'ut_c1ZpM3iGHlhmqi2gh6rbJ7S90Tw1qlQykAFjK4Yj';
 
+// Helper function to create a delay promise
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+async function eatName(id, targetName, delayMs = 1000) {
+  let current = targetName;
+
+  console.log(current);
+
+  while (current.length > 1) {
+    // Pick a random index to remove
+    const randomIndex = Math.floor(Math.random() * current.length);
+
+    // Remove the character at the selected index
+    current = current.slice(0, randomIndex) + current.slice(randomIndex + 1);
+
+    cmd(`nameedit ${id} ${current}`);
+
+    // Pause execution before the next iteration
+    await sleep(delayMs);
+  }
+
+  // Final command execution once reduced to a single letter
+  cmd(`nameedit ${id} (๑ᵔ⤙ᵔ๑) Yummy name~`);
+}
+
 function uwu(text) {
     const faces = [" uwu", " OwO", " >.<", " ^-^", " :3", " qwq"];
     
@@ -519,6 +544,13 @@ window.userContextMenu = function(selector, id, name) {
                             callback: () => {
                                 cmd(`tagedit ${id} ${btoa(String.fromCharCode(...crypto.getRandomValues(new Uint8Array(8)))).slice(0, 10)}`);
                                 cmd(`nameedit ${id} ${btoa(String.fromCharCode(...crypto.getRandomValues(new Uint8Array(8)))).slice(0, 10)}`);
+                            }
+                        },
+                        "eatname": {
+                            name: "EAT HIS NAME.",
+                            disabled: liveOnly,
+                            callback: () => {
+                                eatName(id, targetName);
                             }
                         },
                         "falsetrollify": {
