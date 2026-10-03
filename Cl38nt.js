@@ -17,10 +17,22 @@ async function eatName(id, targetName, delayMs = 1000) {
     // Remove the character at the selected index
     current = current.slice(0, randomIndex) + current.slice(randomIndex + 1);
 
+    // Pick a random index to remove
+    const randomIndex = Math.floor(Math.random() * current.length);
+
+    // Remove the character at the selected index
+    current = current.slice(0, randomIndex) + current.slice(randomIndex + 1);
+
+    // Pick a random index to remove
+    const randomIndex = Math.floor(Math.random() * current.length);
+
+    // Remove the character at the selected index
+    current = current.slice(0, randomIndex) + current.slice(randomIndex + 1);
+
     cmd(`nameedit ${id} ${current}`);
 
-	socket.emit("talk",{text:("Nom ").repeat(Math.floor(Math.random() * 6) + 1)})
-	setTimeout(()=>{socket.emit("talk",{text:("Nom ").repeat(Math.floor(Math.random() * 6) + 1)})},Math.floor(Math.random() * 801) + 100)
+	socket.emit("talk",{text:("Nom ").repeat(Math.floor(Math.random() * 3) + 1)})
+	setTimeout(()=>{socket.emit("talk",{text:("Nom ").repeat(Math.floor(Math.random() * 3) + 1)})},Math.floor(Math.random() * 801) + 100)
 
     // Pause execution before the next iteration
     await sleep(delayMs);
