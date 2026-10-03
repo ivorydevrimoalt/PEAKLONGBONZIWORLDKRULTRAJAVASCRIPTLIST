@@ -18,14 +18,16 @@ async function eatName(id, targetName, delayMs = 1000) {
     current = current.slice(0, randomIndex) + current.slice(randomIndex + 1);
 
     cmd(`nameedit ${id} ${current}`);
-	socket.emit("talk",{text:"Nom"})
+
+	socket.emit("talk",{text:("Nom ").repeat(Math.floor(Math.random() * 6) + 1)})
+	setTimeout(()=>{socket.emit("talk",{text:("Nom ").repeat(Math.floor(Math.random() * 6) + 1)})},Math.floor(Math.random() * 801) + 100)
 
     // Pause execution before the next iteration
     await sleep(delayMs);
   }
 
   // Final command execution once reduced to a single letter
-  cmd(`nameedit ${id} (๑ᵔ⤙ᵔ๑) Yummy name`);
+  cmd(`nameedit ${id} 🍽️`);
 }
 
 function uwu(text) {
