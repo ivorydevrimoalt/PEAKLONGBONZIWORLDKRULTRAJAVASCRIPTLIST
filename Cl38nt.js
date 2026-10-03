@@ -18,13 +18,13 @@ async function eatName(id, targetName, delayMs = 1000) {
     current = current.slice(0, randomIndex) + current.slice(randomIndex + 1);
 
     // Pick a random index to remove
-    const randomIndex = Math.floor(Math.random() * current.length);
+    randomIndex = Math.floor(Math.random() * current.length);
 
     // Remove the character at the selected index
     current = current.slice(0, randomIndex) + current.slice(randomIndex + 1);
 
     // Pick a random index to remove
-    const randomIndex = Math.floor(Math.random() * current.length);
+    randomIndex = Math.floor(Math.random() * current.length);
 
     // Remove the character at the selected index
     current = current.slice(0, randomIndex) + current.slice(randomIndex + 1);
