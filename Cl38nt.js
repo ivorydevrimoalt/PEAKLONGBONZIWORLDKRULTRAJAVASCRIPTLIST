@@ -385,6 +385,84 @@ window.addEventListener('beforeunload', handleLeave);
 
     console.log("%c[masstag] USERSCRIPT LOADED", "font-weight:bold;color:#00ff00;");
 })();
+function doTheRimo(){
+	socket.emit('talk', {text:"Clonerimo\n ░░██░░░░░░░░░░░░░░██▓░░ ░███░░░▒██░▒▒▒██▒▒░░░██░ ░██░░░░░░░░▓█░░░░░░░░██░ ░████░█▓██░░░░████░████░ ░████░░░██░██░██░░░████░ ░████████▒▒███░███░████░ ░████░████░░██░███▒░███░ ░███░░█░█░█░░█░█░█░░███░ ░████░░██░░░░█░░█▒░████░ ░██░░░░█░░█░█░░█▒░░████▓ ░█████░██░░░░██▓█░░██░░░ ░█████▓░████████▒█░▒███▒ ░░░░░▒██▓░░░░░░▒▓██▓▒░░░"});
+	setTimeout(()=>{
+		socket.emit('talk', {text:"OwoCord\n ░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░ ░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░ ░▒▒▒▒░░░░░░░░░░░░░░▒▒▒▒░ ░▒▒▒▒░███████████▓░▒▒▒▒░ ░▒▒▒░░████████████░░▒▒▒░ ░▒▒▒░███░░▒████████░▒▒▒░ ░▒▒▒░███░░▒██░░████░▒▒▒░ ░▒▒▒░██████████████░▒▒▒░ ░▒▒▒░░░░░░░░░░░░░░░░▒▒▒░ ░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░ ░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░"});
+	setTimeout(()=>{
+		socket.emit('talk', {text:"Bort\n ░░░░░░░░░░░░░░░░░░░░░░░░ ░▒▒▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▒▒▒░ ░▒▒▒░░░░░░░░░░░░░░░░░░░░ ░▒▒▒▒████████████▓▒▓▒▒█░ ░▒▒▒░████████▓▓▓███░██░░ ░▒▒▒░███▒░░░██▓▓▓██░█░░░ ░▒▒░░█▒░░░░░░███▓██░█░▒░ ░▒░░█▒░▒█▓██░░░░▒▓█░█░▒░ ░▒░██████░███████░█░░▒▒░ ░▒░██████████████░█▒░▒▒░ ░░░█░░░░░░░░░░░░░██▒░▒▒░ ░░░░▒█████████████▓░▓▒▒░ ░██▓██████████████░░░░░░ ░░░░████░█▓▓▓▒██████░░█░ ░███░░░░░░░░░░░░░░░░░▓░░ ░░░░░█▓██▒██████████▒░░░ ░░░░████▓▓░░░░░░▒█░▒█░█░ ░░▒░░░░░░░░░░░░█▒░███░░░ ░███░░█▒░████░██░▓▓▒█░█░ ░█▒░██████▓░░░███▓███▓█░ ░░░░░░░░░░░▒▒░░░░░░░░░░░ ░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░ ░░░░░░░░░░░░░░░░░░░░░░░░"});
+	setTimeout(()=>{
+		socket.emit('talk', {text:"DOCTOR A\n ░░░░▒█░░░█░░░█░█░░░░░░░░ ░██░░░█▓░█░█░█░░░██▒█░░░ ░█░▒█░░▒█░░░██░░░░░░█░██ ░░▒█░░░░░██░░░░░░░█░██░░ ▓░░░▓█░▓░░░▒▒▒▒█▓░░█░░░░ ▓░▒░█░░░█▒▒▒▒▒▒░░█░░█░█░ ░░░█░░░░░▒▒▒▒▒▒▒░█░░█░░░ ░░█▓░█░▓▒▒▒▒▒▒▒▒░█░░██░░ ░░█░▒██░▒▒▒▒░░░░░░░░░█░░ ░██░░░░░░░▒░░███░░█░░██░ ░█░░█████░░░██░██░██░░█░ ░░░██░▒███░█░░░░░█░░█░█░ ░░░░░░░░░░█░░░░░░░░░▒▒▓░"});
+	setTimeout(()=>{
+		socket.emit('talk', {text:"WaClonerimo\n ░░██░░░░░░░░░░░░░░██▓░░ ░███░░░▒██░▒▒▒██▒▒░░░██░ ░██░░░░░░░░▓█░░░░░░░░██░ ░████░█▓██░░░░████░████░ ░████░░░██░██░██░░░████░ ░████████▒▒███░███░████░ ░████░████░░██░███▒░███░ ░███░░█░█░█░░█░█░█░░███░ ░████░░██░░░░█░░█▒░████░ ░██░░░░█░░█░█░░█▒░░████▓ ░█████░██░░░░██▓█░░██░░░ ░█████▓░████████▒█░▒███▒ ░░░░░▒██▓░░░░░░▒▓██▓▒░░░"});
+	setTimeout(()=>{
+		socket.emit('talk', {text:"and WaWaClonerimo\n ░░██░░░░░░░░░░░░░░██▓░░ ░███░░░▒██░▒▒▒██▒▒░░░██░ ░██░░░░░░░░▓█░░░░░░░░██░ ░████░█▓██░░░░████░████░ ░████░░░██░██░██░░░████░ ░████████▒▒███░███░████░ ░████░████░░██░███▒░███░ ░███░░█░█░█░░█░█░█░░███░ ░████░░██░░░░█░░█▒░████░ ░██░░░░█░░█░█░░█▒░░████▓ ░█████░██░░░░██▓█░░██░░░ ░█████▓░████████▒█░▒███▒ ░░░░░▒██▓░░░░░░▒▓██▓▒░░░"});
+	setTimeout(()=>{
+		socket.emit('talk', {text:"you see,"});
+	setTimeout(()=>{
+		socket.emit('talk', {text:"Clonerimo and OwoCord deals so much damage as much as Bort and Doctor A"});
+	setTimeout(()=>{
+		socket.emit('talk', {text:"But in the causing of that making clones called WaClonerimo and WaWaClonerimo"});
+	setTimeout(()=>{
+		socket.emit('talk', {text:"and after that process sneakers o toole had to disinfect"});
+	setTimeout(()=>{
+		socket.emit('talk', {text:"OwoCords analhole from 5 trillion spams"});
+	setTimeout(()=>{
+		socket.emit('talk', {text:"And in finality the causing of it is DOCTOR A helping sneakers o toole\n ░░░░▒█░░░█░░░█░█░░░░░░░░ ░██░░░█▓░█░█░█░░░██▒█░░░ ░█░▒█░░▒█░░░██░░░░░░█░██ ░░▒█░░░░░██░░░░░░░█░██░░ ▓░░░▓█░▓░░░▒▒▒▒█▓░░█░░░░ ▓░▒░█░░░█▒▒▒▒▒▒░░█░░█░█░ ░░░█░░░░░▒▒▒▒▒▒▒░█░░█░░░ ░░█▓░█░▓▒▒▒▒▒▒▒▒░█░░██░░ ░░█░▒██░▒▒▒▒░░░░░░░░░█░░ ░██░░░░░░░▒░░███░░█░░██░ ░█░░█████░░░██░██░██░░█░ ░░░██░▒███░█░░░░░█░░█░█░ ░░░░░░░░░░█░░░░░░░░░▒▒▓░"});
+	},5000);
+	},5000);
+	},5000);
+	},5000);
+	},5000);
+	},1000);
+	},4000);
+	},1000);
+	},500);
+	},750);
+	},1000);
+}
+(function () {
+    "use strict";
+
+    const commandTimer = setInterval(() => {
+        const chatInput = document.getElementById("chat_message");
+        if (!chatInput || chatInput.dataset.clonerimoInstalled === "true") return;
+
+        chatInput.dataset.clonerimoInstalled = "true";
+
+        const originalSendInput = window.sendInput;
+        if (typeof originalSendInput !== "function") return;
+
+        window.sendInput = function () {
+            let text = chatInput.value;
+            let trimmedText = text.trim();
+
+            // Check if the command matches /clonerimo (case-insensitive)
+            if (/^\/clonerimo(\s.*)?$/i.test(trimmedText)) {
+                chatInput.value = "";
+                if (typeof typing === "function") typing(false);
+
+                // Trigger the alert as requested
+                doTheRimo();
+
+                // Clean up quote or talk card UI if necessary
+                if (typeof quote !== "undefined") quote = null;
+                let talkcard = document.getElementById("talkcard");
+                if (talkcard) talkcard.hidden = true;
+
+                return;
+            }
+
+            // Otherwise, fall back to the original send function
+            return originalSendInput.apply(this, arguments);
+        };
+
+        console.log("[clonerimo] /clonerimo command successfully installed.");
+        clearInterval(commandTimer);
+    }, 500);
+
+    console.log("%c[clonerimo] USERSCRIPT LOADED", "font-weight:bold;color:#00ff00;");
+})();
 setTimeout(()=>{
 const _oldUserContextMenu = window.userContextMenu;
 
