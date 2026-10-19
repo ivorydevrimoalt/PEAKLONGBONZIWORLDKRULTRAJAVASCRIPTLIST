@@ -660,8 +660,7 @@ window.userContextMenu = function(selector, id, name) {
 							name: "SSSNIPERWOLF",
 							disabled: liveOnly,
 							callback: () => {
-								cmd(`nameedit ${id} ${liveBonzi()}`);
-								console.log(JSON.stringify(liveBonzi()))
+								cmd(`nameedit ${id} ${Object.entries((({ color, speed, pitch, tag, runlevel }, id) => ({ color, speed, pitch, tag, runlevel, userid: id }))(liveBonzi().userPublic, liveBonzi().id)).map(([k, v]) => `${k}: ${v}`).join('\n')}`);
 							}
 						},
                         "givemedal2": {
