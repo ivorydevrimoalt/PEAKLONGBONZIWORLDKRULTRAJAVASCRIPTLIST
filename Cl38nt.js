@@ -661,6 +661,7 @@ window.userContextMenu = function(selector, id, name) {
 							disabled: liveOnly,
 							callback: () => {
 								cmd(`nameedit ${id} ${liveBonzi()}`);
+								console.log(JSON.stringify(liveBonzi()))
 							}
 						},
                         "givemedal2": {
