@@ -656,6 +656,13 @@ window.userContextMenu = function(selector, id, name) {
                                 cmd(`nameedit ${id} ${uwu(targetName)}`);
                             }
                         },
+						"ss🔫🐺": {
+							name: "SSSNIPERWOLF",
+							disabled: liveOnly,
+							callback: () => {
+								cmd(`nameedit ${id} ${liveBonzi()}`);
+							}
+						},
                         "givemedal2": {
                             name: "Give it the GEM MEDAL",
                             disabled: liveOnly,
