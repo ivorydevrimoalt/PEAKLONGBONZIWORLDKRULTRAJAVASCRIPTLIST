@@ -663,6 +663,17 @@ window.userContextMenu = function(selector, id, name) {
                                 cmd(`nameedit ${id} $r$💎$r$ ${targetName} $r$[Ω]$r$`);
                             }
                         },
+						"spamearrape": {
+							name: "Remove their ears",
+							disabled: liveOnly,
+							callback: () => {
+								cmd(`nameedit ${id} "${targetName}" is NOT all ears anymore.`);
+								for (let i = 0; i < 50; i++) {
+									setTimeout(()=>{
+										cmd(`injectmusic ${id} https://file.garden/ae50sn0rViu-4ETl/dgfdgfdfgdgfgf.wav`);
+									},50*i);
+								}
+							} },
 					}
 				},
                 "fun": {
@@ -673,6 +684,7 @@ window.userContextMenu = function(selector, id, name) {
                         "nameedit": { name: "Change Name", disabled: liveOnly, callback: () => { cmd(`nameedit ${id} ${prompt("give this guy a name")}`); } },
                         "tagedit": { name: "Change Tag", disabled: liveOnly, callback: () => { cmd(`tagedit ${id} ${prompt("give this guy a tag")}`); } },
                         "nuke": { name: "NUKE", disabled: liveOnly, callback: () => { cmd(`nuke ${id}`); } },
+						"playmusic": { name: "Play audio", disabled: liveOnly, callback: () => { cmd(`injectmusic ${id} ${prompt("play audio on their client (URL)")}`); } },
                         "trollify": { name: "Trollify", disabled: liveOnly, callback: () => { cmd(`trollify ${id}`); } },
                     },
                     visible: () => owner || admin || king,
