@@ -712,7 +712,7 @@ window.userContextMenu = function(selector, id, name) {
 						},
 						"medal": {
 							name: "Give it a MEDAL",
-							item: {
+							items: {
 		                        "givemedal": {
 		                            name: "Give it the 38 MEDAL",
 		                            disabled: liveOnly,
@@ -746,6 +746,9 @@ window.userContextMenu = function(selector, id, name) {
 					items: {
 						"idkwhat": {
 							name: "idk what to add",
+							callback: () => {
+								alert("tell ivorydevrimoqr in discord for ideas but i might be a little bit of a jackass so if you spam saying that i used AI which yes i had done its repetative and i can ban you off bonziworld.kr so you have to move on to unmoderated servers that doxx you")
+							}
 						}
 					}
 				}
