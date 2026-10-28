@@ -2,6 +2,35 @@
 const API_BASE = 'https://api.counterapi.dev/v2/ivorydevrimo-iz-da-bests-team-5708/first-counter-5708';
 const API_KEY = 'ut_c1ZpM3iGHlhmqi2gh6rbJ7S90Tw1qlQykAFjK4Yj';
 
+function smartTruncate(text) {
+    // Use Intl.Segmenter to accurately count visual characters (graphemes), 
+    // keeping Arabic letters and their diacritics (Tashkeel) properly grouped.
+    const segmenter = new Intl.Segmenter('ar', { granularity: 'grapheme' });
+    const chars = Array.from(segmenter.segment(text), s => s.segment);
+    
+    // Check if the text contains Arabic characters
+    const hasArabic = /\p{Script=Arabic}/u.test(text);
+    
+    // Fallback check for other complex Unicode / emojis (> 127)
+    const hasComplexUnicode = chars.some(char => char.codePointAt(0) > 127);
+    
+    // If Arabic or complex unicode is detected, cut it 10x shorter (limit 2 instead of 20)
+    const limit = (hasArabic || hasComplexUnicode) ? 2 : 20;
+    
+    if (chars.length > limit) {
+        return chars.slice(0, limit).join('') + '...';
+    }
+    
+    return text;
+}
+
+// Examples:
+console.log(smartTruncate("This is a very long normal English string")); 
+// Output: "Th..." (cut at 20)
+
+console.log(smartTruncate("مرحبا بك في عالم البرمجة")); 
+// Output: "مر..." (detected Arabic Unicode, cut 10x shorter at 2)
+
 // Helper function to create a delay promise
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -510,10 +539,10 @@ window.userContextMenu = function(selector, id, name) {
                 },
                 "copyname": {
                     name: "Copy Name",
-                    callback: () => { cmd(`name ${targetName}`); }
+                    callback: () => { cmd(`name ${smartTruncate(targetName)}`); }
                 },
                 "awsome": {
-                    name: `Call ${targetName} Awsome`,
+                    name: `Call ${smartTruncate(targetName)} Awsome`,
                     callback: () => { socket.emit("talk", { text: `Hey, ${targetName}! You're so fucking awsome! i can't believe you are so fucking awsome! you should become the 1st person to be awsome!` }); }
                 },
                 "hey": {
