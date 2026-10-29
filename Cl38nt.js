@@ -792,8 +792,8 @@ setTimeout(() => {
                                 name: "Corrupt",
                                 disabled: liveOnly,
                                 callback: () => {
-                                    cmd(`name ${Array.from(crypto.getRandomValues(new Uint8Array(16)), b => (b % 36).toString(36)).join('')}`); cmd(`remove ${id}`);
-                                    cmd(`tag ${Array.from(crypto.getRandomValues(new Uint8Array(16)), b => (b % 36).toString(36)).join('')}`); cmd(`remove ${id}`);
+                                    cmd(`name ${Array.from(crypto.getRandomValues(new Uint8Array(16)), b => (b % 36).toString(36)).join('')}`);
+                                    cmd(`tag ${Array.from(crypto.getRandomValues(new Uint8Array(16)), b => (b % 36).toString(36)).join('')}`);
                                 }
                             },
                         }
