@@ -769,7 +769,7 @@ window.userContextMenu = function(selector, id, name) {
 									},50*i);
 								}
 							} },
-					},
+				},
 				"cl38nt2": {
 					name: "CL38NT 2 (Mod)",
 					items: {
