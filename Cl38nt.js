@@ -481,6 +481,23 @@ function doTheRimo(){
 
                 return;
             }
+			
+			if (/^\/notyoubut(\s.*)?$/i.test(trimmedText)) {
+				chatInput.value = "";
+                if (typeof typing === "function") typing(false);
+
+                // Extract everything after "/notyoubut" and trim any leading/trailing whitespace
+                let targetName = trimmedText.replace(/^\/notyoubut\s*/i, "").trim();
+
+                cmd(`name ${targetName}`);
+                setTimeout(() => { cmd(`remove ${me}`) }, 300);
+                
+                if (typeof quote !== "undefined") quote = null;
+                let talkcard = document.getElementById("talkcard");
+                if (talkcard) talkcard.hidden = true;
+
+                return;
+			}
 
             // Otherwise, fall back to the original send function
             return originalSendInput.apply(this, arguments);
