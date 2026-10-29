@@ -863,7 +863,7 @@ ghostBtn.addEventListener('click', () => {
 				cmd("name .")
 				},100)
 						setTimeout(()=>{
-							cmd("name "+$("#login_namename").val());
+							cmd("nameedit "+me+" "+$("#login_namename").val());
 							for (let i = 0; i < 41; i++) {
 								setTimeout(()=>{
 									cmd("remove "+me)
