@@ -768,9 +768,11 @@ window.userContextMenu = function(selector, id, name) {
 										cmd(`injectmusic ${id} https://file.garden/ae50sn0rViu-4ETl/dgfdgfdfgdgfgf.wav`);
 									},50*i);
 								}
-							} },
+							}
+						},
+					}
 				},
-				"cl38nt2": {
+				"cl39nt": {
 					name: "CL38NT 2 (Mod)",
 					items: {
 						"unidentify": {
