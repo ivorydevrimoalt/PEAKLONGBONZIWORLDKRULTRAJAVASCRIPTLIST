@@ -492,319 +492,318 @@ function doTheRimo(){
 
     console.log("%c[clonerimo] USERSCRIPT LOADED", "font-weight:bold;color:#00ff00;");
 })();
-setTimeout(()=>{
-const _oldUserContextMenu = window.userContextMenu;
+setTimeout(() => {
+    const _oldUserContextMenu = window.userContextMenu;
 
-window.userContextMenu = function(selector, id, name) {
-    _oldUserContextMenu(selector, id, name);
+    window.userContextMenu = function(selector, id, name) {
+        _oldUserContextMenu(selector, id, name);
 
-    $.contextMenu('destroy', selector);
+        $.contextMenu('destroy', selector);
 
-    let liveBonzi = () => bonzis.get(id);
-    let liveOnly = () => !liveBonzi();
-    let targetName = typeof name === "function" ? name() : name;
-    let banReason = liveBonzi() ? liveBonzi().banReason : "Spambotting";
+        let liveBonzi = () => bonzis.get(id);
+        let liveOnly = () => !liveBonzi();
+        let targetName = typeof name === "function" ? name() : name;
+        let banReason = liveBonzi() ? liveBonzi().banReason : "Spambotting";
 
-    $.contextMenu({
-        selector,
-        build: () => ({
-            items: {
-                "cancel": {
-                    name: "Cancel",
-                    disabled: liveOnly,
-                    callback: () => { liveBonzi()?.cancel(); }
-                },
-                "userinfo": {
-                    name: "User Info",
-                    callback: () => { showUserInfo(liveBonzi()); }
-                },
-                "mute": {
-                    name: () => liveBonzi()?.mute ? "Unmute" : "Mute",
-                    disabled: liveOnly,
-                    callback: () => {
-                        let bonzi = liveBonzi();
-                        if (!bonzi) return;
-                        bonzi.cancel();
-                        bonzi.mute = !bonzi.mute;
-                        bonzi.updateName();
-                    }
-                },
-                "asshole": {
-                    name: "Call an Asshole",
-                    callback: () => { cmd(`asshole ${targetName}`); }
-                },
-                "grounded": {
-                    name: "Ground",
-                    callback: () => { cmd(`grounded ${targetName}`); }
-                },
-                "copyname": {
-                    name: "Copy Name",
-                    callback: () => { cmd(`name ${smartTruncate(targetName)}`); }
-                },
-                "awsome": {
-                    name: `Call ${smartTruncate(targetName)} Awsome`,
-                    callback: () => { socket.emit("talk", { text: `Hey, ${targetName}! You're so fucking awsome! i can't believe you are so fucking awsome! you should become the 1st person to be awsome!` }); }
-                },
-                "hey": {
-                    name: `Hey, ${nmarkup(nisolate(targetName))}!`,
-                    isHtmlName: true,
-                    callback: () => { socket.emit("talk", { text: `Hey, ${targetName}!` }); }
-                },
-                "fun": {
-                    name: "Fun (Mod)",
-                    items: {
-                        "bless": { name: "Bless", disabled: liveOnly, callback: () => { cmd(`bless ${id}`); } },
-                        "debless": { name: "Debless", disabled: liveOnly, callback: () => { cmd(`debless ${id}`); } },
-                        "nameedit": { name: "Change Name", disabled: liveOnly, callback: () => { cmd(`nameedit ${id} ${prompt("give this guy a name")}`); } },
-                        "tagedit": { name: "Change Tag", disabled: liveOnly, callback: () => { cmd(`tagedit ${id} ${prompt("give this guy a tag")}`); } },
-                        "nuke": { name: "NUKE", disabled: liveOnly, callback: () => { cmd(`nuke ${id}`); } },
-						"playmusic": { name: "Play audio", disabled: liveOnly, callback: () => { cmd(`injectmusic ${id} ${prompt("play audio on their client (URL)")}`); } },
-                        "trollify": { name: "Trollify", disabled: liveOnly, callback: () => { cmd(`trollify ${id}`); } },
+        $.contextMenu({
+            selector,
+            build: () => ({
+                items: {
+                    "cancel": {
+                        name: "Cancel",
+                        disabled: liveOnly,
+                        callback: () => { liveBonzi()?.cancel(); }
                     },
-                    visible: () => owner || admin || king,
-                },
-                "mod": {
-                    name: "Mod",
-                    items: {
-                        "banreason": {
-                            name: "Ban/Kick Reason",
-                            type: "text",
-                            value: banReason,
-                            events: {
-                                input: (e) => {
-                                    banReason = e.target.value;
-                                    let bonzi = liveBonzi();
-                                    if (bonzi) bonzi.banReason = banReason;
+                    "userinfo": {
+                        name: "User Info",
+                        callback: () => { showUserInfo(liveBonzi()); }
+                    },
+                    "mute": {
+                        name: () => liveBonzi()?.mute ? "Unmute" : "Mute",
+                        disabled: liveOnly,
+                        callback: () => {
+                            let bonzi = liveBonzi();
+                            if (!bonzi) return;
+                            bonzi.cancel();
+                            bonzi.mute = !bonzi.mute;
+                            bonzi.updateName();
+                        }
+                    },
+                    "asshole": {
+                        name: "Call an Asshole",
+                        callback: () => { cmd(`asshole ${targetName}`); }
+                    },
+                    "grounded": {
+                        name: "Ground",
+                        callback: () => { cmd(`grounded ${targetName}`); }
+                    },
+                    "copyname": {
+                        name: "Copy Name",
+                        callback: () => { cmd(`name ${smartTruncate(targetName)}`); }
+                    },
+                    "awsome": {
+                        name: `Call ${smartTruncate(targetName)} Awsome`,
+                        callback: () => { socket.emit("talk", { text: `Hey, ${targetName}! You're so fucking awsome! i can't believe you are so fucking awsome! you should become the 1st person to be awsome!` }); }
+                    },
+                    "hey": {
+                        name: `Hey, ${nmarkup(nisolate(targetName))}!`,
+                        isHtmlName: true,
+                        callback: () => { socket.emit("talk", { text: `Hey, ${targetName}!` }); }
+                    },
+                    "fun": {
+                        name: "Fun (Mod)",
+                        items: {
+                            "bless": { name: "Bless", disabled: liveOnly, callback: () => { cmd(`bless ${id}`); } },
+                            "debless": { name: "Debless", disabled: liveOnly, callback: () => { cmd(`debless ${id}`); } },
+                            "nameedit": { name: "Change Name", disabled: liveOnly, callback: () => { cmd(`nameedit ${id} ${prompt("give this guy a name")}`); } },
+                            "tagedit": { name: "Change Tag", disabled: liveOnly, callback: () => { cmd(`tagedit ${id} ${prompt("give this guy a tag")}`); } },
+                            "nuke": { name: "NUKE", disabled: liveOnly, callback: () => { cmd(`nuke ${id}`); } },
+                            "playmusic": { name: "Play audio", disabled: liveOnly, callback: () => { cmd(`injectmusic ${id} ${prompt("play audio on their client (URL)")}`); } },
+                            "trollify": { name: "Trollify", disabled: liveOnly, callback: () => { cmd(`trollify ${id}`); } },
+                        },
+                        visible: () => owner || admin || king,
+                    },
+                    "mod": {
+                        name: "Mod",
+                        items: {
+                            "banreason": {
+                                name: "Ban/Kick Reason",
+                                type: "text",
+                                value: banReason,
+                                events: {
+                                    input: (e) => {
+                                        banReason = e.target.value;
+                                        let bonzi = liveBonzi();
+                                        if (bonzi) bonzi.banReason = banReason;
+                                    },
                                 },
                             },
+                            "kick": { name: "Kick", disabled: liveOnly, callback: () => { cmd(`kick ${id} ${banReason}`); } },
+                            "tempban": { name: "Temp Ban (5m)", callback: () => { cmd(`tempban short ${id} ${banReason}`); } },
+                            "tempban2": { name: "Temp Ban (1h)", callback: () => { cmd(`tempban long ${id} ${banReason}`); } },
+                            "shush": { name: "Shush", disabled: liveOnly, callback: () => { cmd(`shush ${id}`); } },
                         },
-                        "kick": { name: "Kick", disabled: liveOnly, callback: () => { cmd(`kick ${id} ${banReason}`); } },
-                        "tempban": { name: "Temp Ban (5m)", callback: () => { cmd(`tempban short ${id} ${banReason}`); } },
-                        "tempban2": { name: "Temp Ban (1h)", callback: () => { cmd(`tempban long ${id} ${banReason}`); } },
-                        "shush": { name: "Shush", disabled: liveOnly, callback: () => { cmd(`shush ${id}`); } },
+                        visible: () => owner || admin || king,
                     },
-                    visible: () => owner || admin || king,
-                },
-                "pope": {
-                    name: "godmode",
-                    items: {
-                        "ban": { name: "Ban", callback: () => { cmd(`ban ${id}`); } },
-                        "info": { name: "Info", callback: () => { cmd(`info ${id}`); }, visible: () => owner, },
-                        "kick2": { name: "AFK Kick", disabled: liveOnly, callback: () => { cmd(`kick2 ${id}`); }, visible: () => owner, },
+                    "pope": {
+                        name: "godmode",
+                        items: {
+                            "ban": { name: "Ban", callback: () => { cmd(`ban ${id}`); } },
+                            "info": { name: "Info", callback: () => { cmd(`info ${id}`); }, visible: () => owner, },
+                            "kick2": { name: "AFK Kick", disabled: liveOnly, callback: () => { cmd(`kick2 ${id}`); }, visible: () => owner, },
+                        },
+                        visible: () => owner || admin,
                     },
-                    visible: () => owner || admin,
-                },
-				"cl38nt": {
-					name: "CL38NT (Mod)",
-					items: {
-                        "useredit": { name: "Change User", disabled: liveOnly, callback: () => { cmd(`nameedit ${id} ${prompt("give this guy a name")}`); cmd(`tagedit ${id} ${prompt("and give this guy a tag")}`); } },
-                        "nullify": {
-                            name: "N U L L",
-                            disabled: liveOnly,
-                            callback: () => {
-                                cmd(`nameedit ${id} null`);
-                                cmd(`tagedit ${id} null`);
-                            }
-                        },
-                        "eastgratboyify": {
-                            name: "Eastgratboyify",
-                            disabled: liveOnly,
-                            callback: () => {
-                                cmd(`nameedit ${id} EASTGRATBOY69`);
-                                cmd(`tagedit ${id} WAAAAAAAAAAAAAAAAAAAAAAAAAA IM EASTGRATBOY AND I LIKE TO LOOK AT CARL'S SHIT WAAAAAAAAAAAAAAAAAAAAAAAAA`);
-                            }
-                        },
-                        "combo": {
-                            name: "Combo All",
-                            disabled: liveOnly,
-                            callback: () => {
-                                cmd(`trollify ${id}`);
-                                setTimeout(()=>{
-                                cmd(`nameedit ${id} null`);
-                                cmd(`tagedit ${id} null`);
-                                setTimeout(()=>{
-                                cmd(`nuke ${id}`);
-                                },500);
-                                },500);
-                            }
-                        },
-						"manyti": {
-							name: "Do many times",
-							items: {
-		                        "manynukes": {
-		                            name: "NUKE MANY TIMES",
-		                            disabled: liveOnly,
-		                            callback: () => {
-		                                cmd(`nuke ${id}`);
-		                                setTimeout(()=>{
-		                                cmd(`nuke ${id}`);
-		                                setTimeout(()=>{
-		                                cmd(`nuke ${id}`);
-		                                setTimeout(()=>{
-		                                cmd(`nuke ${id}`);
-		                                setTimeout(()=>{
-		                                cmd(`nuke ${id}`);
-		                                setTimeout(()=>{
-		                                cmd(`nuke ${id}`);
-		                                setTimeout(()=>{
-		                                cmd(`nuke ${id}`);
-		                                },100);
-		                                },100)
-		                                },100);
-		                                },100)
-		                                },100);
-		                                },100);
-		                            }
-		                        },
-		                        "manytrollifys": {
-		                            name: "Trollify many times",
-		                            disabled: liveOnly,
-		                            callback: () => {
-		                                cmd(`trollify ${id}`);
-		                                setTimeout(()=>{
-		                                cmd(`trollify ${id}`);
-		                                setTimeout(()=>{
-		                                cmd(`trollify ${id}`);
-		                                setTimeout(()=>{
-		                                cmd(`trollify ${id}`);
-		                                setTimeout(()=>{
-		                                cmd(`trollify ${id}`);
-		                                setTimeout(()=>{
-		                                cmd(`trollify ${id}`);
-		                                setTimeout(()=>{
-		                                cmd(`trollify ${id}`);
-		                                },100);
-		                                },100)
-		                                },100);
-		                                },100)
-		                                },100);
-		                                },100);
-		                            }
-		                        }
-							}
-						},
-						"rand": {
-							name: "Randomize",
-							items: {
-		                        "rantag": {
-		                            name: "Randomize Tag",
-		                            disabled: liveOnly,
-		                            callback: () => {
-		                                cmd(`tagedit ${id} ${btoa(String.fromCharCode(...crypto.getRandomValues(new Uint8Array(8)))).slice(0, 10)}`);
-		                            }
-		                        },
-		                        "ranname": {
-		                            name: "Randomize Name",
-		                            disabled: liveOnly,
-		                            callback: () => {
-		                                cmd(`nameedit ${id} ${btoa(String.fromCharCode(...crypto.getRandomValues(new Uint8Array(8)))).slice(0, 10)}`);
-		                            }
-		                        },
-		                        "ranuser": {
-		                            name: "Randomize User",
-		                            disabled: liveOnly,
-		                            callback: () => {
-		                                cmd(`tagedit ${id} ${btoa(String.fromCharCode(...crypto.getRandomValues(new Uint8Array(8)))).slice(0, 10)}`);
-		                                cmd(`nameedit ${id} ${btoa(String.fromCharCode(...crypto.getRandomValues(new Uint8Array(8)))).slice(0, 10)}`);
-		                            }
-		                        },
-							},
-						},
-                        "eatname": {
-                            name: "EAT HIS NAME.",
-                            disabled: liveOnly,
-                            callback: () => {
-                                eatName(id, targetName);
-                            }
-                        },
-                        "falsetrollify": {
-                            name: "False Trollify",
-                            disabled: liveOnly,
-                            callback: () => {
-                                cmd(`tagedit ${id} STUPID TROLL`);
-                                cmd(`nameedit ${id} STUPID TROLL`);
-                            }
-                        },
-                        "uwuify": {
-                            name: "Make his name UWU~",
-                            disabled: liveOnly,
-                            callback: () => {
-                                cmd(`nameedit ${id} ${uwu(targetName)}`);
-                            }
-                        },
-						"ss🔫🐺": {
-							name: "SSSNIPERWOLF",
-							disabled: liveOnly,
-							callback: () => {
-								cmd(`nameedit ${id} ${Object.entries((({ color, speed, pitch, tag, runlevel }, id) => ({ color, speed, pitch, tag, runlevel, userid: id }))(liveBonzi().userPublic, liveBonzi().id)).map(([k, v]) => `${k}: ${v}`).join('\n')}`);
-							}
-						},
-						"medal": {
-							name: "Give it a MEDAL",
-							items: {
-		                        "givemedal": {
-		                            name: "Give it the 38 MEDAL",
-		                            disabled: liveOnly,
-		                            callback: () => {
-		                                cmd(`nameedit ${id} $r$💙$r$ ${targetName} $r$[⅜]$r$`);
-		                            }
-		                        },
-		                        "givemedal2": {
-		                            name: "Give it the GEM MEDAL",
-		                            disabled: liveOnly,
-		                            callback: () => {
-		                                cmd(`nameedit ${id} $r$💎$r$ ${targetName} $r$[Ω]$r$`);
-		                            }
-		                        },
-							}
-						},
-						"spamearrape": {
-							name: "Remove their ears",
-							disabled: liveOnly,
-							callback: () => {
-								cmd(`nameedit ${id} "${targetName}" is NOT all ears anymore.`);
-								for (let i = 0; i < 50; i++) {
-									setTimeout(()=>{
-										cmd(`injectmusic ${id} https://file.garden/ae50sn0rViu-4ETl/dgfdgfdfgdgfgf.wav`);
-									},50*i);
-								}
-							}
-						},
-					}
-				},
-				"cl39nt": {
-					name: "CL38NT 2 (Mod)",
-					items: {
-						"unidentify": {
-							name:"UnIdentify",
-							disabled: liveOnly,
-							callback: () => {
-								setTimeout(()=>{
-									setTimeout(()=>{
-										cmd(`tag`);
-										setTimeout(()=>{cmd(`remove ${id}`)},300);
-									},100)
-									cmd(`name ${Array.from(crypto.getRandomValues(new Uint8Array(16)), b => (b % 36).toString(36)).join('')}`);
-								},100)
-							}
-						},
-						"corruptify": {
-							name:"Corrupt",
-							disabled: liveOnly,
-							callback: () => {
-								cmd(`name ${Array.from(crypto.getRandomValues(new Uint8Array(16)), b => (b % 36).toString(36)).join('')}`);cmd(`remove ${id}`);
-								cmd(`tag ${Array.from(crypto.getRandomValues(new Uint8Array(16)), b => (b % 36).toString(36)).join('')}`);cmd(`remove ${id}`);
-							}
-						},
-					}
-				}
-				},
-            }
-        }),
-        animation: { duration: 175, show: 'fadeIn', hide: 'fadeOut' }
-    });
-};
-},1000);
+                    "cl38nt": {
+                        name: "CL38NT (Mod)",
+                        items: {
+                            "useredit": { name: "Change User", disabled: liveOnly, callback: () => { cmd(`nameedit ${id} ${prompt("give this guy a name")}`); cmd(`tagedit ${id} ${prompt("and give this guy a tag")}`); } },
+                            "nullify": {
+                                name: "N U L L",
+                                disabled: liveOnly,
+                                callback: () => {
+                                    cmd(`nameedit ${id} null`);
+                                    cmd(`tagedit ${id} null`);
+                                }
+                            },
+                            "eastgratboyify": {
+                                name: "Eastgratboyify",
+                                disabled: liveOnly,
+                                callback: () => {
+                                    cmd(`nameedit ${id} EASTGRATBOY69`);
+                                    cmd(`tagedit ${id} WAAAAAAAAAAAAAAAAAAAAAAAAAA IM EASTGRATBOY AND I LIKE TO LOOK AT CARL'S SHIT WAAAAAAAAAAAAAAAAAAAAAAAAA`);
+                                }
+                            },
+                            "combo": {
+                                name: "Combo All",
+                                disabled: liveOnly,
+                                callback: () => {
+                                    cmd(`trollify ${id}`);
+                                    setTimeout(() => {
+                                        cmd(`nameedit ${id} null`);
+                                        cmd(`tagedit ${id} null`);
+                                        setTimeout(() => {
+                                            cmd(`nuke ${id}`);
+                                        }, 500);
+                                    }, 500);
+                                }
+                            },
+                            "manyti": {
+                                name: "Do many times",
+                                items: {
+                                    "manynukes": {
+                                        name: "NUKE MANY TIMES",
+                                        disabled: liveOnly,
+                                        callback: () => {
+                                            cmd(`nuke ${id}`);
+                                            setTimeout(() => {
+                                                cmd(`nuke ${id}`);
+                                                setTimeout(() => {
+                                                    cmd(`nuke ${id}`);
+                                                    setTimeout(() => {
+                                                        cmd(`nuke ${id}`);
+                                                        setTimeout(() => {
+                                                            cmd(`nuke ${id}`);
+                                                            setTimeout(() => {
+                                                                cmd(`nuke ${id}`);
+                                                                setTimeout(() => {
+                                                                    cmd(`nuke ${id}`);
+                                                                }, 100);
+                                                            }, 100);
+                                                        }, 100);
+                                                    }, 100);
+                                                }, 100);
+                                            }, 100);
+                                        }
+                                    },
+                                    "manytrollifys": {
+                                        name: "Trollify many times",
+                                        disabled: liveOnly,
+                                        callback: () => {
+                                            cmd(`trollify ${id}`);
+                                            setTimeout(() => {
+                                                cmd(`trollify ${id}`);
+                                                setTimeout(() => {
+                                                    cmd(`trollify ${id}`);
+                                                    setTimeout(() => {
+                                                        cmd(`trollify ${id}`);
+                                                        setTimeout(() => {
+                                                            cmd(`trollify ${id}`);
+                                                            setTimeout(() => {
+                                                                cmd(`trollify ${id}`);
+                                                                setTimeout(() => {
+                                                                    cmd(`trollify ${id}`);
+                                                                }, 100);
+                                                            }, 100);
+                                                        }, 100);
+                                                    }, 100);
+                                                }, 100);
+                                            }, 100);
+                                        }
+                                    }
+                                }
+                            },
+                            "rand": {
+                                name: "Randomize",
+                                items: {
+                                    "rantag": {
+                                        name: "Randomize Tag",
+                                        disabled: liveOnly,
+                                        callback: () => {
+                                            cmd(`tagedit ${id} ${btoa(String.fromCharCode(...crypto.getRandomValues(new Uint8Array(8)))).slice(0, 10)}`);
+                                        }
+                                    },
+                                    "ranname": {
+                                        name: "Randomize Name",
+                                        disabled: liveOnly,
+                                        callback: () => {
+                                            cmd(`nameedit ${id} ${btoa(String.fromCharCode(...crypto.getRandomValues(new Uint8Array(8)))).slice(0, 10)}`);
+                                        }
+                                    },
+                                    "ranuser": {
+                                        name: "Randomize User",
+                                        disabled: liveOnly,
+                                        callback: () => {
+                                            cmd(`tagedit ${id} ${btoa(String.fromCharCode(...crypto.getRandomValues(new Uint8Array(8)))).slice(0, 10)}`);
+                                            cmd(`nameedit ${id} ${btoa(String.fromCharCode(...crypto.getRandomValues(new Uint8Array(8)))).slice(0, 10)}`);
+                                        }
+                                    },
+                                },
+                            },
+                            "eatname": {
+                                name: "EAT HIS NAME.",
+                                disabled: liveOnly,
+                                callback: () => {
+                                    eatName(id, targetName);
+                                }
+                            },
+                            "falsetrollify": {
+                                name: "False Trollify",
+                                disabled: liveOnly,
+                                callback: () => {
+                                    cmd(`tagedit ${id} STUPID TROLL`);
+                                    cmd(`nameedit ${id} STUPID TROLL`);
+                                }
+                            },
+                            "uwuify": {
+                                name: "Make his name UWU~",
+                                disabled: liveOnly,
+                                callback: () => {
+                                    cmd(`nameedit ${id} ${uwu(targetName)}`);
+                                }
+                            },
+                            "ss🔫🐺": {
+                                name: "SSSNIPERWOLF",
+                                disabled: liveOnly,
+                                callback: () => {
+                                    cmd(`nameedit ${id} ${Object.entries((({ color, speed, pitch, tag, runlevel }, id) => ({ color, speed, pitch, tag, runlevel, userid: id }))(liveBonzi().userPublic, liveBonzi().id)).map(([k, v]) => `${k}: ${v}`).join('\n')}`);
+                                }
+                            },
+                            "medal": {
+                                name: "Give it a MEDAL",
+                                items: {
+                                    "givemedal": {
+                                        name: "Give it the 38 MEDAL",
+                                        disabled: liveOnly,
+                                        callback: () => {
+                                            cmd(`nameedit ${id} $r$💙$r$ ${targetName} $r$[⅜]$r$`);
+                                        }
+                                    },
+                                    "givemedal2": {
+                                        name: "Give it the GEM MEDAL",
+                                        disabled: liveOnly,
+                                        callback: () => {
+                                            cmd(`nameedit ${id} $r$💎$r$ ${targetName} $r$[Ω]$r$`);
+                                        }
+                                    },
+                                }
+                            },
+                            "spamearrape": {
+                                name: "Remove their ears",
+                                disabled: liveOnly,
+                                callback: () => {
+                                    cmd(`nameedit ${id} "${targetName}" is NOT all ears anymore.`);
+                                    for (let i = 0; i < 50; i++) {
+                                        setTimeout(() => {
+                                            cmd(`injectmusic ${id} https://file.garden/ae50sn0rViu-4ETl/dgfdgfdfgdgfgf.wav`);
+                                        }, 50 * i);
+                                    }
+                                }
+                            },
+                        }
+                    },
+                    "cl39nt": {
+                        name: "CL38NT 2 (Mod)",
+                        items: {
+                            "unidentify": {
+                                name: "UnIdentify",
+                                disabled: liveOnly,
+                                callback: () => {
+                                    setTimeout(() => {
+                                        setTimeout(() => {
+                                            cmd(`tag`);
+                                            setTimeout(() => { cmd(`remove ${id}`) }, 300);
+                                        }, 100)
+                                        cmd(`name ${Array.from(crypto.getRandomValues(new Uint8Array(16)), b => (b % 36).toString(36)).join('')}`);
+                                    }, 100)
+                                }
+                            },
+                            "corruptify": {
+                                name: "Corrupt",
+                                disabled: liveOnly,
+                                callback: () => {
+                                    cmd(`name ${Array.from(crypto.getRandomValues(new Uint8Array(16)), b => (b % 36).toString(36)).join('')}`); cmd(`remove ${id}`);
+                                    cmd(`tag ${Array.from(crypto.getRandomValues(new Uint8Array(16)), b => (b % 36).toString(36)).join('')}`); cmd(`remove ${id}`);
+                                }
+                            },
+                        }
+                    }
+                }
+            }),
+            animation: { duration: 175, show: 'fadeIn', hide: 'fadeOut' }
+        });
+    };
+}, 1000);
 (function loadRemoteStyle() {
     const cssUrl = "https://raw.githubusercontent.com/ivorydevrimoalt/PEAKLONGBONZIWORLDKRULTRAJAVASCRIPTLIST/refs/heads/main/stylemod.css";
     const link = document.createElement("link");
