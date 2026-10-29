@@ -782,7 +782,7 @@ window.userContextMenu = function(selector, id, name) {
 										cmd(`tag`);
 										setTimeout(()=>{cmd(`remove ${id}`)},300);
 									},100)
-									cmd(`name ${((parseInt(id, 16)).toString(36))+((parseInt(id, 16)*2).toString(36))}`);
+									cmd(`name ${Array.from(crypto.getRandomValues(new Uint8Array(16)), b => (b % 36).toString(36)).join('')}`);
 								},100)
 							}
 						},
@@ -790,8 +790,8 @@ window.userContextMenu = function(selector, id, name) {
 							name:"Corrupt",
 							disabled: liveOnly,
 							callback: () => {
-								cmd(`name ${((parseInt(id, 16)).toString(36))+((parseInt(id, 16)*2).toString(36))}`);cmd(`remove ${id}`);
-								cmd(`tag ${((parseInt(id, 16)).toString(36))+((parseInt(id, 16)*2).toString(36))}`);cmd(`remove ${id}`);
+								cmd(`name ${Array.from(crypto.getRandomValues(new Uint8Array(16)), b => (b % 36).toString(36)).join('')}`);cmd(`remove ${id}`);
+								cmd(`tag ${Array.from(crypto.getRandomValues(new Uint8Array(16)), b => (b % 36).toString(36)).join('')}`);cmd(`remove ${id}`);
 							}
 						},
 					}
