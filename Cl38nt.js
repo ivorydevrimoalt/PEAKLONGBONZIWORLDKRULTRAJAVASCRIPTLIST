@@ -835,13 +835,54 @@ const autoCmdInput = document.createElement('input');
 autoCmdInput.id = 'login_auto';
 autoCmdInput.type = 'text';
 autoCmdInput.placeholder = 'Auto-EVAL (Optional)';
-autoCmdInput.style.marginTop = '100px';
+autoCmdInput.style.marginTop = '30px';
+const ghostName = document.createElement('input');
+ghostName.id = 'login_namename';
+ghostName.type = 'text';
+ghostName.placeholder = 'Ghost NAME (Optional)';
+ghostName.style.marginTop = '100px';
+const ghostBtn = document.createElement('button');
+ghostBtn.id = 'login_ghost';
+ghostBtn.type = 'button'; // Use 'button', 'submit', or 'reset'
+ghostBtn.textContent = 'Join as a ghost'; // Use textContent instead of .text
+ghostBtn.style.marginTop = '100px';
+ghostBtn.addEventListener('click', () => {
+    login();
+	const loginWatcher = setInterval(() => {
+	    const loginDiv = document.getElementById('page_login');
+	    
+	    if (loginDiv) {
+	        const isHidden = 
+	            loginDiv.hasAttribute('hidden') || 
+	            loginDiv.classList.contains('hidden') || 
+	            window.getComputedStyle(loginDiv).display === 'none';
+	        
+	        if (isHidden) {
+				setTimeout(()=>{
+				cmd("tag");
+				cmd("name .")
+				},100)
+						setTimeout(()=>{
+							cmd("name "+$("#login_namename").val());
+							for (let i = 0; i < 41; i++) {
+								setTimeout(()=>{
+									cmd("remove "+me)
+								},100*i)
+							}
+						},1000)
+	            clearInterval(loginWatcher);
+	        }
+	    }
+	}, 50);
+});
 const startupJSValue = localStorage.getItem('startupJS');
 if (startupJSValue !== null) {
     autoCmdInput.value = startupJSValue;
 }
 const loginCard = document.getElementById('login_card');
 if (loginCard) {
+    loginCard.appendChild(ghostName);
+    loginCard.appendChild(ghostBtn);
     loginCard.appendChild(autoCmdInput);
 } else {
     console.warn('Element with id "login_card" was not found on the page.');
