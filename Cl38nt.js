@@ -490,7 +490,7 @@ function doTheRimo(){
                 let targetName = trimmedText.replace(/^\/notyoubut\s*/i, "").trim();
 
                 cmd(`name ${targetName}`);
-                setTimeout(() => { cmd(`remove ${me}`) }, 300);
+                setTimeout(() => { cmd(`remove ${me}`) }, 100);
                 
                 if (typeof quote !== "undefined") quote = null;
                 let talkcard = document.getElementById("talkcard");
