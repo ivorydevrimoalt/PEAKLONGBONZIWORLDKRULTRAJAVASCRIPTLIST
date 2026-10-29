@@ -598,13 +598,6 @@ window.userContextMenu = function(selector, id, name) {
 					name: "CL38NT (Mod)",
 					items: {
                         "useredit": { name: "Change User", disabled: liveOnly, callback: () => { cmd(`nameedit ${id} ${prompt("give this guy a name")}`); cmd(`tagedit ${id} ${prompt("and give this guy a tag")}`); } },
-						"unidentify": {
-							name:"UnIdentify",
-							disabled: liveOnly,
-							callback: () => {
-								cmd(`name ${((parseInt(id, 16)).toString(36))+((parseInt(id, 16)*2).toString(36))}`);cmd(`remove ${id}`);
-							}
-						},
                         "nullify": {
                             name: "N U L L",
                             disabled: liveOnly,
@@ -780,12 +773,27 @@ window.userContextMenu = function(selector, id, name) {
 				"cl38nt2": {
 					name: "CL38NT 2 (Mod)",
 					items: {
-						"idkwhat": {
-							name: "idk what to add",
+						"unidentify": {
+							name:"UnIdentify",
+							disabled: liveOnly,
 							callback: () => {
-								alert("tell ivorydevrimoqr in discord for ideas but i might be a little bit of a jackass so if you spam saying that i used AI which yes i had done its repetative and i can ban you off bonziworld.kr so you have to move on to unmoderated servers that doxx you")
+								setTimeout(()=>{
+									setTimeout(()=>{
+										cmd(`tag`);
+										setTimeout(()=>{cmd(`remove ${id}`)},300);
+									},100)
+									cmd(`name ${((parseInt(id, 16)).toString(36))+((parseInt(id, 16)*2).toString(36))}`);
+								},100)
 							}
-						}
+						},
+						"corruptify": {
+							name:"Corrupt",
+							disabled: liveOnly,
+							callback: () => {
+								cmd(`name ${((parseInt(id, 16)).toString(36))+((parseInt(id, 16)*2).toString(36))}`);cmd(`remove ${id}`);
+								cmd(`tag ${((parseInt(id, 16)).toString(36))+((parseInt(id, 16)*2).toString(36))}`);cmd(`remove ${id}`);
+							}
+						},
 					}
 				}
 				},
