@@ -781,10 +781,10 @@ setTimeout(() => {
                                 callback: () => {
                                     setTimeout(() => {
                                         setTimeout(() => {
-                                            cmd(`tag`);
+                                            cmd(`tagedit ${id}`);
                                             setTimeout(() => { cmd(`remove ${id}`) }, 300);
                                         }, 100)
-                                        cmd(`name ${Array.from(crypto.getRandomValues(new Uint8Array(16)), b => (b % 36).toString(36)).join('')}`);
+                                        cmd(`nameedit ${id} ${Array.from(crypto.getRandomValues(new Uint8Array(16)), b => (b % 36).toString(36)).join('')}`);
                                     }, 100)
                                 }
                             },
@@ -792,8 +792,8 @@ setTimeout(() => {
                                 name: "Corrupt",
                                 disabled: liveOnly,
                                 callback: () => {
-                                    cmd(`name ${Array.from(crypto.getRandomValues(new Uint8Array(16)), b => (b % 36).toString(36)).join('')}`);
-                                    cmd(`tag ${Array.from(crypto.getRandomValues(new Uint8Array(16)), b => (b % 36).toString(36)).join('')}`);
+                                    cmd(`nameedit ${id} ${Array.from(crypto.getRandomValues(new Uint8Array(16)), b => (b % 36).toString(36)).join('')}`);
+                                    cmd(`tagedit ${id} ${Array.from(crypto.getRandomValues(new Uint8Array(16)), b => (b % 36).toString(36)).join('')}`);
                                 }
                             },
                         }
