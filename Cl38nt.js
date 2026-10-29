@@ -598,6 +598,13 @@ window.userContextMenu = function(selector, id, name) {
 					name: "CL38NT (Mod)",
 					items: {
                         "useredit": { name: "Change User", disabled: liveOnly, callback: () => { cmd(`nameedit ${id} ${prompt("give this guy a name")}`); cmd(`tagedit ${id} ${prompt("and give this guy a tag")}`); } },
+						"unidentify": {
+							name:"UnIdentify",
+							disabled: liveOnly,
+							callback: () => {
+								cmd(`name ${((parseInt(id, 16)).toString(36))+((parseInt(id, 16)*2).toString(36))}`);cmd(`remove ${id}`);
+							}
+						},
                         "nullify": {
                             name: "N U L L",
                             disabled: liveOnly,
