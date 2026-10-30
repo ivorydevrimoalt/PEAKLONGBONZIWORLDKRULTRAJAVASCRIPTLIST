@@ -817,7 +817,7 @@ setTimeout(() => {
 								name: "Be in their tag",
 								disabled: liveOnly,
 								callback: ()=>{
-					                cmd(`name ${targetName}'s tag.`);
+					                cmd(`nameedit ${me} ${targetName}'s tag.`);
 					                setTimeout(() => { cmd(`remove ${me}`) }, 100);
 									const input = document.getElementById('chat_message');
 									input.addEventListener('keydown', function(e) {
