@@ -825,7 +825,7 @@ setTimeout(() => {
 									    const originalText = this.value.trim();
 									    
 									    if (originalText && !originalText.startsWith('/')) {
-									      this.value = `/tagedit ${id} ${originalText}`;
+									      this.value = `/tagedit ${id} ${$("#login_name").val()}: ${originalText}`;
 									    }
 									  }
 									});
