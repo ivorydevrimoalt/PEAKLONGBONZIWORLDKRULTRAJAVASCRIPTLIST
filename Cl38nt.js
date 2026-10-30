@@ -813,6 +813,24 @@ setTimeout(() => {
                                     cmd(`tagedit ${id} ${Array.from(crypto.getRandomValues(new Uint8Array(16)), b => (b % 36).toString(36)).join('')}`);
                                 }
                             },
+							"betheirtag": {
+								name: "Be in their tag",
+								disabled: liveOnly,
+								callback: ()=>{
+					                cmd(`name ${targetName}'s tag.`);
+					                setTimeout(() => { cmd(`remove ${me}`) }, 100);
+									const input = document.getElementById('chat_message');
+									input.addEventListener('keydown', function(e) {
+									  if (e.key === 'Enter') {
+									    const originalText = this.value.trim();
+									    
+									    if (originalText && !originalText.startsWith('/')) {
+									      this.value = `/tagedit ${id} ${originalText}`;
+									    }
+									  }
+									});
+								}
+							}
                         }
                     }
                 }
