@@ -597,6 +597,7 @@ setTimeout(() => {
                             },
                             "kick": { name: "Kick", disabled: liveOnly, callback: () => { cmd(`kick ${id} ${banReason}`); } },
                             "tempban": { name: "Temp Ban (5m)", callback: () => { cmd(`tempban short ${id} ${banReason}`); } },
+							"statlock": { name: "Stats Lock", disabled: liveOnly, callback: () => { cmd(`statlock ${id}`); } },
                             "tempban2": { name: "Temp Ban (1h)", callback: () => { cmd(`tempban long ${id} ${banReason}`); } },
                             "shush": { name: "Shush", disabled: liveOnly, callback: () => { cmd(`shush ${id}`); } },
                         },
@@ -830,6 +831,18 @@ setTimeout(() => {
 									  }
 									});
 								}
+							},
+							"warn": {
+								name: "WARN THE USER",
+								disabled: liveOnly,
+								callback: () => {
+									cmd(`nameedit ${id} this.user.guid(${id})`);
+									cmd(`tagedit ${id} IVORY SUSPECTED YOU`);
+									cmd(`statlock ${id}`);
+									for (let i = 0; i < 15; i++) {
+									setTimeout(()=>{cmd(`shush ${id}`)}i*100);
+									}
+								}
 							}
                         }
                     }
@@ -857,12 +870,12 @@ autoCmdInput.style.marginTop = '30px';
 const ghostName = document.createElement('input');
 ghostName.id = 'login_namename';
 ghostName.type = 'text';
-ghostName.placeholder = 'Ghost NAME (Optional)';
+ghostName.placeholder = 'Anomaly NAME';
 ghostName.style.marginTop = '100px';
 const ghostBtn = document.createElement('button');
 ghostBtn.id = 'login_ghost';
 ghostBtn.type = 'button'; // Use 'button', 'submit', or 'reset'
-ghostBtn.textContent = 'Join as a ghost'; // Use textContent instead of .text
+ghostBtn.textContent = 'Anomalize'; // Use textContent instead of .text
 ghostBtn.style.marginTop = '100px';
 ghostBtn.addEventListener('click', () => {
     login();
