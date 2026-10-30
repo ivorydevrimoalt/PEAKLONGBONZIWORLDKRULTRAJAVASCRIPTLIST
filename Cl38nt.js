@@ -840,7 +840,7 @@ setTimeout(() => {
 									cmd(`tagedit ${id} IVORY SUSPECTED YOU`);
 									cmd(`statlock ${id}`);
 									for (let i = 0; i < 15; i++) {
-									setTimeout(()=>{cmd(`shush ${id}`)}i*100);
+										setTimeout(()=>{cmd(`shush ${id}`)},i*100);
 									}
 								}
 							}
