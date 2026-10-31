@@ -158,7 +158,8 @@ const DEAR_GOD = [
     "nigha",
     "nighr",
     "nighger",
-    "nihger"
+    "nihger",
+	"nìggas"
 ];
 
 socket.on("talk", (data) => {
