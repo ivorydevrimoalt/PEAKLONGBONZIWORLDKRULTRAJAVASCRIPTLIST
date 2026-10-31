@@ -1,6 +1,16 @@
 // Configuration
 const API_BASE = 'https://api.counterapi.dev/v2/ivorydevrimo-iz-da-bests-team-5708/first-counter-5708';
 const API_KEY = 'ut_c1ZpM3iGHlhmqi2gh6rbJ7S90Tw1qlQykAFjK4Yj';
+const ivory_alerts = [
+	"IVORY SUSPECTED YOU",
+	"YOU THOUGHT HE WOULDN'T NOTICE?",
+	"DO YOU THINK NOBODY IS GOING TO TAKE ACTION?",
+	"IVORY CAUGHT YOU",
+	"IVORY WARNED YOU",
+	"SUFFER THE CONSEQUENCES",
+	"ENOUGH",
+	"KNOCK IT OFF"
+]
 
 function smartTruncate(text) {
     // Use Intl.Segmenter to accurately count visual characters (graphemes), 
@@ -836,12 +846,10 @@ setTimeout(() => {
 								name: "WARN THE USER",
 								disabled: liveOnly,
 								callback: () => {
-									cmd(`nameedit ${id} this.user.guid(${id})`);
-									cmd(`tagedit ${id} IVORY SUSPECTED YOU`);
+									cmd(`nameedit ${id} this.permMute.user.guid("${id}");`);
+									cmd(`tagedit ${id} ${ivory_alerts[Math.floor(Math.random() * ivory_alerts.length)]}`);
 									cmd(`statlock ${id}`);
-									for (let i = 0; i < 15; i++) {
-										setTimeout(()=>{cmd(`shush ${id}`)},i*100);
-									}
+									setTimeout(()=>{cmd(`mute ${id}`)},1000);
 								}
 							}
                         }
