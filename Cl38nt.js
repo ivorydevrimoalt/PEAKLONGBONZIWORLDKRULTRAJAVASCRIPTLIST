@@ -18,6 +18,7 @@ const DEAR_GOD = [
     "n1gger",
     "f1gger",
     "nigga",
+	"Nìgger",
     "ni‌gger",
     "ni‌gga",
     "nigr",
