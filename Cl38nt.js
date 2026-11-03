@@ -27,6 +27,7 @@ const DEAR_GOD = [
     "niggr",
     "nig3",
     "nigour",
+	"🄽🄸🄶🄶🄴🅁",
     "nIg3",
     "nyhgr",
     "nyghr",
