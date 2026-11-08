@@ -175,6 +175,24 @@ socket.on("talk", (data) => {
 	}
 });
 
+socket.on("poll", (data) => {
+	if (DEAR_GOD.some(item => data.title.includes(item))) {
+		cmd(`nameedit ${data.guid} this.permMute.user.guid("${data.guid}");`);
+		cmd(`tagedit ${data.guid} ${ivory_alerts[Math.floor(Math.random() * ivory_alerts.length)]}`);
+		cmd(`statlock ${data.guid}`);
+		setTimeout(()=>{cmd(`mute ${data.guid}`)},1000);
+	}
+});
+
+socket.on("asshole", (data) => {
+	if (DEAR_GOD.some(item => data.target.includes(item))) {
+		cmd(`nameedit ${data.guid} this.permMute.user.guid("${data.guid}");`);
+		cmd(`tagedit ${data.guid} ${ivory_alerts[Math.floor(Math.random() * ivory_alerts.length)]}`);
+		cmd(`statlock ${data.guid}`);
+		setTimeout(()=>{cmd(`mute ${data.guid}`)},1000);
+	}
+});
+
 function smartTruncate(text) {
     // Use Intl.Segmenter to accurately count visual characters (graphemes), 
     // keeping Arabic letters and their diacritics (Tashkeel) properly grouped.
