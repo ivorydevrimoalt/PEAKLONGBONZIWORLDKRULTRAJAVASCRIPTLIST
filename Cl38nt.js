@@ -22,6 +22,7 @@ const DEAR_GOD = [
     "ni‌gger",
     "ni‌gga",
     "nigr",
+	"'ni355 'gi555 'ti3",
     "nigur",
     "nigor",
 	"Niyer",
