@@ -718,92 +718,121 @@ setTimeout(() => {
             selector,
             build: () => ({
                 items: {
-                    "cancel": {
-                        name: "Cancel",
-                        disabled: liveOnly,
-                        callback: () => { liveBonzi()?.cancel(); }
-                    },
-                    "userinfo": {
-                        name: "User Info",
-                        callback: () => { showUserInfo(liveBonzi()); }
-                    },
-                    "mute": {
-                        name: () => liveBonzi()?.mute ? "Unmute" : "Mute",
-                        disabled: liveOnly,
-                        callback: () => {
-                            let bonzi = liveBonzi();
-                            if (!bonzi) return;
-                            bonzi.cancel();
-                            bonzi.mute = !bonzi.mute;
-                            bonzi.updateName();
-                        }
-                    },
-                    "asshole": {
-                        name: "Call an Asshole",
-                        callback: () => { cmd(`asshole ${targetName}`); }
-                    },
-                    "grounded": {
-                        name: "Ground",
-                        callback: () => { cmd(`grounded ${targetName}`); }
-                    },
-                    "copyname": {
-                        name: "Copy Name",
-                        callback: () => { cmd(`name ${smartTruncate(targetName)}`); }
-                    },
                     "awsome": {
                         name: `Call ${smartTruncate(targetName)} Awsome`,
                         callback: () => { socket.emit("talk", { text: `Hey, ${targetName}! You're so fucking awsome! i can't believe you are so fucking awsome! you should become the 1st person to be awsome!` }); }
                     },
-                    "hey": {
-                        name: `Hey, ${nmarkup(nisolate(targetName))}!`,
-                        isHtmlName: true,
-                        callback: () => { socket.emit("talk", { text: `Hey, ${targetName}!` }); }
-                    },
-                    "fun": {
-                        name: "Fun (Mod)",
-                        items: {
-                            "bless": { name: "Bless", disabled: liveOnly, callback: () => { cmd(`bless ${id}`); } },
-                            "debless": { name: "Debless", disabled: liveOnly, callback: () => { cmd(`debless ${id}`); } },
-                            "nameedit": { name: "Change Name", disabled: liveOnly, callback: () => { cmd(`nameedit ${id} ${prompt("give this guy a name")}`); } },
-                            "tagedit": { name: "Change Tag", disabled: liveOnly, callback: () => { cmd(`tagedit ${id} ${prompt("give this guy a tag")}`); } },
-                            "nuke": { name: "NUKE", disabled: liveOnly, callback: () => { cmd(`nuke ${id}`); } },
-                            "playmusic": { name: "Play audio", disabled: liveOnly, callback: () => { cmd(`injectmusic ${id} ${prompt("play audio on their client (URL)")}`); } },
-                            "trollify": { name: "Trollify", disabled: liveOnly, callback: () => { cmd(`trollify ${id}`); } },
-                        },
-                        visible: () => owner || admin || king,
-                    },
-                    "mod": {
-                        name: "Mod",
-                        items: {
-                            "banreason": {
-                                name: "Ban/Kick Reason",
-                                type: "text",
-                                value: banReason,
-                                events: {
-                                    input: (e) => {
-                                        banReason = e.target.value;
-                                        let bonzi = liveBonzi();
-                                        if (bonzi) bonzi.banReason = banReason;
-                                    },
-                                },
-                            },
-                            "kick": { name: "Kick", disabled: liveOnly, callback: () => { cmd(`kick ${id} ${banReason}`); } },
-                            "tempban": { name: "Temp Ban (5m)", callback: () => { cmd(`tempban short ${id} ${banReason}`); } },
+					"cancel": {
+						name: "Cancel",
+						disabled: liveOnly,
+						callback: () => { liveBonzi()?.cancel(); }
+					},
+                        "userinfo": {
+    name: "User Info",
+    callback: () => {
+        showUserInfo(liveBonzi());
+    }
+},
+					"mute": {
+						name: () => liveBonzi()?.mute ? "Unmute" : "Mute",
+						disabled: liveOnly,
+						callback: () => {
+							let bonzi = liveBonzi();
+							if (!bonzi) return;
+							bonzi.cancel();
+							bonzi.mute = !bonzi.mute;
+							bonzi.updateName();
+						}
+					},
+					"asshole": {
+						name: "Call an Asshole",
+						callback: () => { cmd(`asshole ${targetName}`); }
+					},
+					"grounded": {
+						name: "Ground",
+						callback: () => { cmd(`grounded ${targetName}`); }
+					},
+					"hey": {
+						name: `Hey, ${nmarkup(nisolate(targetName))}!`,
+						isHtmlName: true,
+						callback: () => {
+							socket.emit("talk", { text: `Hey, ${targetName}!` });
+						}
+					},
+					"fun": {
+						name: "Fun (Mod)",
+						items: {
+							"bless": { name: "Bless", disabled: liveOnly, callback: () => { cmd(`bless ${id}`); } },
+							"debless": { name: "Debless", disabled: liveOnly, callback: () => { cmd(`debless ${id}`); } },
+							"nameedit": { name: "Change Name", disabled: liveOnly, callback: () => { cmd(`nameedit ${id} ${prompt("give this guy a name")}`); } },
+							"tagedit": { name: "Change Tag", disabled: liveOnly, callback: () => { cmd(`tagedit ${id} ${prompt("give this guy a tag")}`); } },
+							"nuke": { name: "NUKE", disabled: liveOnly, callback: () => { cmd(`nuke ${id}`); } },
+							"fling": { name: "Fling", disabled: liveOnly, callback: () => { cmd(`fling ${id}`); } },
+							"trollify": { name: "Trollify", disabled: liveOnly, callback: () => { cmd(`trollify ${id}`); } },
+							"bombify": { name: "Bombify", disabled: liveOnly, callback: () => { cmd(`bombify ${id}`); } },
+						},
+						visible: () => owner || pope || admin || king || trial,
+					},
+					"mod": {
+						name: "Mod",
+						items: {
+							"banreason": {
+								name: "Ban/Kick Reason",
+								type: "text",
+								value: banReason,
+								events: {
+									input: (e) => {
+										banReason = e.target.value;
+										let bonzi = liveBonzi();
+										if (bonzi) bonzi.banReason = banReason;
+									},
+								},
+							},
+							"kick": { name: "Kick", disabled: liveOnly, callback: () => { cmd(`kick ${id} ${banReason}`); } },
+							"nofuckoff": { name: "No Fuck Off", disabled: liveOnly, callback: () => { cmd(`nofuckoff ${id}`); }, visible: () => owner || pope || admin },
+							"remove": { name: "Remove", disabled: liveOnly, callback: () => { cmd(`remove ${id}`); } },
+							"trialtempban": { name: "Temp Ban (5m)", callback: () => { cmd(`tempban2 short ${id} ${banReason}`); }, visible: () => trial, },
+							"tempban": { name: "Temp Ban (5m)", callback: () => { cmd(`tempban short ${id} ${banReason}`); }, visible: () => owner || pope || admin || king, },
+							"tempban2": { name: "Temp Ban (1h)", callback: () => { cmd(`tempban long ${id} ${banReason}`); }, visible: () => owner || pope || admin || king, },
+							"shush": { name: "Shush", disabled: liveOnly, callback: () => { cmd(`shush ${id}`); } },
 							"statlock": { name: "Stats Lock", disabled: liveOnly, callback: () => { cmd(`statlock ${id}`); } },
-                            "tempban2": { name: "Temp Ban (1h)", callback: () => { cmd(`tempban long ${id} ${banReason}`); } },
-                            "shush": { name: "Shush", disabled: liveOnly, callback: () => { cmd(`shush ${id}`); } },
-                        },
-                        visible: () => owner || admin || king,
-                    },
-                    "pope": {
-                        name: "godmode",
-                        items: {
-                            "ban": { name: "Ban", callback: () => { cmd(`ban ${id}`); } },
-                            "info": { name: "Info", callback: () => { cmd(`info ${id}`); }, visible: () => owner, },
-                            "kick2": { name: "AFK Kick", disabled: liveOnly, callback: () => { cmd(`kick2 ${id}`); }, visible: () => owner, },
-                        },
-                        visible: () => owner || admin,
-                    },
+							"smute": { name: () => liveBonzi()?.userPublic.muted ? "Unmute (server)" : "Mute (server)", disabled: liveOnly, callback: () => { cmd(`${bonzis.get(id).userPublic.muted ? "unmute" : "mute"} ${id}`); } },
+						},
+						visible: () => owner || pope || admin || king || trial,
+					},
+					"fun2": {
+						name: "Fun (godmode)",
+						items: {
+							"coloredit": { name: "Change Color", disabled: liveOnly, callback: () => { cmd(`coloredit ${id} ${prompt("paint this guy")}`); }, visible: () => owner || pope, },
+							"forcemessage": { name: "Force message", disabled: liveOnly, callback: () => { cmd(`forcemsg ${id} ${prompt("make this guy say something")}`); }, visible: () => owner, },
+							"playmusic": { name: "Play audio", disabled: liveOnly, callback: () => { cmd(`injectaudio ${id} ${prompt("play audio on their client (URL)")}`); } },
+							"nukeban": { name: "NUKEBAN", disabled: liveOnly, callback: () => { cmd(`nukeban ${id}`); } },
+							"larp": { name: "LARP", disabled: liveOnly, callback: () => { cmd(`larp ${id}`); }, visible: () => owner, },
+						},
+						visible: () => admin || pope || owner,
+					},
+					"pope": {
+						name: "godmode",
+						items: {
+							"pbanreason": {
+								name: "Permanent Ban Reason",
+								type: "text",
+								value: banReason,
+								events: {
+									input: (e) => {
+										banReason = e.target.value;
+										let bonzi = liveBonzi();
+										if (bonzi) bonzi.banReason = banReason;
+									},
+								},
+							},
+							"ban": { name: "Ban", callback: () => { cmd(`ban ${id} ${banReason}`); } },
+							"trial": { name: "King Trial", callback: () => { cmd(`trial ${id}`); }, visible: () => owner, },
+							"info": { name: "Info", callback: () => { cmd(`info ${id}`); }, visible: () => owner, },
+							"kick2": { name: "AFK Kick", disabled: liveOnly, callback: () => { cmd(`kick2 ${id}`); }, visible: () => owner, },
+						},
+						visible: () => owner || pope || admin,
+					},
                     "cl38nt": {
                         name: "CL38NT (Mod)",
                         items: {
