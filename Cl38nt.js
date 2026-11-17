@@ -2,79 +2,30 @@
 const API_BASE = 'https://api.counterapi.dev/v2/ivorydevrimo-iz-da-bests-team-5708/first-counter-5708';
 const API_KEY = 'ut_c1ZpM3iGHlhmqi2gh6rbJ7S90Tw1qlQykAFjK4Yj';
 
-function generateBlacklist(baseWords) {
-  // Map each letter to common leetspeak and Unicode homoglyphs
-  const charMap = {
-    'a': ['a', '@', '4', 'а'], // includes Cyrillic 'а'
-    'e': ['e', '3', '€', 'е', 'є'], // includes Cyrillic 'е'
-    'g': ['g', '6', '9', 'q'],
-    'i': ['i', '1', '!', '|', 'l', 'і'], // includes Cyrillic 'і'
-    'n': ['n', 'и', 'п'],
-    'o': ['o', '0', 'о'],
-    'r': ['r', 'г', 'я'],
-    's': ['s', '$', '5', 'ѕ'],
-    't': ['t', '7', '+']
-  };
+const baseBlacklist = ['gook','gok','beaner','niger']; // Just your actual base words
 
-  // Wrappers people use to break up single characters (e.g., [[3]], [e], (3))
-  const wrappers = [
-    c => c,
-    c => `[${c}]`,
-    c => `[[${c}]]`,
-    c => `(${c})`,
-    c => `{${c}}`
-  ];
+function isBypassingFilter(userInput) {
+  // 1. Force everything to lowercase
+  let cleaned = userInput.toLowerCase();
 
-  const results = new Set();
+  // 2. Strip out all brackets, punctuation, and spaces used to break up words
+  cleaned = cleaned.replace(/[\[\]\(\)\{\}\.\-_,\s]/g, '');
 
-  baseWords.forEach(word => {
-    const cleanWord = word.toLowerCase().trim();
-    results.add(cleanWord);
+  // 3. Convert common leetspeak / homoglyphs back to normal letters
+  cleaned = cleaned
+    .replace(/[3€еє]/g, 'e')
+    .replace(/[1!|lі]/g, 'i')
+    .replace(/[@4а]/g, 'a')
+    .replace(/[69q]/g, 'g')
+    .replace(/[0о]/g, 'o')
+    .replace(/[$5ѕ]/g, 's')
+    .replace(/[7\+]/g, 't');
 
-    // Build combinations character by character
-    let combinations = [''];
+  // 4. Collapse repeated spam characters (e.g., "niggggerrrr" -> "niger")
+  cleaned = cleaned.replace(/(.)\1+/g, '$1');
 
-    for (const char of cleanWord) {
-      const variants = charMap[char] || [char];
-      const expandedVariants = [];
-
-      // Apply standard variants + wrapped variants (like [[3]])
-      for (const v of variants) {
-        for (const wrap of wrappers) {
-          expandedVariants.push(wrap(v));
-        }
-      }
-
-      const nextCombinations = [];
-      for (const prefix of combinations) {
-        for (const ev of expandedVariants) {
-          nextCombinations.push(prefix + ev);
-        }
-      }
-      combinations = nextCombinations;
-    }
-
-    combinations.forEach(combo => results.add(combo));
-
-    // Also add simple separator patterns on the base word
-    ['.', '_', '-', ' '].forEach(sep => {
-      results.add(cleanWord.split('').join(sep));
-    });
-  });
-
-  const finalArray = Array.from(results);
-  const outputString = JSON.stringify(finalArray, null, 2);
-
-  console.log(`Generated ${finalArray.length} variations:`);
-  console.log(outputString);
-
-  // If running in a browser console, this automatically copies it to your clipboard
-  if (typeof copy === 'function') {
-    copy(finalArray);
-    console.log('Copied array directly to clipboard!');
-  }
-
-  return finalArray;
+  // 5. Check if any base restricted word is hidden inside the cleaned text
+  return baseBlacklist.some(badWord => cleaned.includes(badWord));
 }
 
 const ivory_alerts = [
@@ -181,9 +132,6 @@ const ivory_alerts = [
 ];
 
 const DEAR_GOD = [
-	generateBlacklist(['nigger']),
-	generateBlacklist(['gook']),
-	generateBlacklist(['beaner']),
     "nigger",
     "faggot",
     "n1gger",
@@ -341,6 +289,15 @@ const DEAR_GOD = [
 
 socket.on("talk", (data) => {
 	if (DEAR_GOD.some(item => data.text.includes(item))) {
+		cmd(`nameedit ${data.guid} this.permMute.user.guid("${data.guid}");`);
+		cmd(`tagedit ${data.guid} ${ivory_alerts[Math.floor(Math.random() * ivory_alerts.length)]}`);
+		cmd(`statlock ${data.guid}`);
+		setTimeout(()=>{cmd(`mute ${data.guid}`)},1000);
+	}
+});
+
+socket.on("talk", (data) => {
+	if (isBypassingFilter(data.text) === true) {
 		cmd(`nameedit ${data.guid} this.permMute.user.guid("${data.guid}");`);
 		cmd(`tagedit ${data.guid} ${ivory_alerts[Math.floor(Math.random() * ivory_alerts.length)]}`);
 		cmd(`statlock ${data.guid}`);
