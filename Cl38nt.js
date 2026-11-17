@@ -1,6 +1,82 @@
 // Configuration
 const API_BASE = 'https://api.counterapi.dev/v2/ivorydevrimo-iz-da-bests-team-5708/first-counter-5708';
 const API_KEY = 'ut_c1ZpM3iGHlhmqi2gh6rbJ7S90Tw1qlQykAFjK4Yj';
+
+function generateBlacklist(baseWords) {
+  // Map each letter to common leetspeak and Unicode homoglyphs
+  const charMap = {
+    'a': ['a', '@', '4', 'а'], // includes Cyrillic 'а'
+    'e': ['e', '3', '€', 'е', 'є'], // includes Cyrillic 'е'
+    'g': ['g', '6', '9', 'q'],
+    'i': ['i', '1', '!', '|', 'l', 'і'], // includes Cyrillic 'і'
+    'n': ['n', 'и', 'п'],
+    'o': ['o', '0', 'о'],
+    'r': ['r', 'г', 'я'],
+    's': ['s', '$', '5', 'ѕ'],
+    't': ['t', '7', '+']
+  };
+
+  // Wrappers people use to break up single characters (e.g., [[3]], [e], (3))
+  const wrappers = [
+    c => c,
+    c => `[${c}]`,
+    c => `[[${c}]]`,
+    c => `(${c})`,
+    c => `{${c}}`
+  ];
+
+  const results = new Set();
+
+  baseWords.forEach(word => {
+    const cleanWord = word.toLowerCase().trim();
+    results.add(cleanWord);
+
+    // Build combinations character by character
+    let combinations = [''];
+
+    for (const char of cleanWord) {
+      const variants = charMap[char] || [char];
+      const expandedVariants = [];
+
+      // Apply standard variants + wrapped variants (like [[3]])
+      for (const v of variants) {
+        for (const wrap of wrappers) {
+          expandedVariants.push(wrap(v));
+        }
+      }
+
+      const nextCombinations = [];
+      for (const prefix of combinations) {
+        for (const ev of expandedVariants) {
+          nextCombinations.push(prefix + ev);
+        }
+      }
+      combinations = nextCombinations;
+    }
+
+    combinations.forEach(combo => results.add(combo));
+
+    // Also add simple separator patterns on the base word
+    ['.', '_', '-', ' '].forEach(sep => {
+      results.add(cleanWord.split('').join(sep));
+    });
+  });
+
+  const finalArray = Array.from(results);
+  const outputString = JSON.stringify(finalArray, null, 2);
+
+  console.log(`Generated ${finalArray.length} variations:`);
+  console.log(outputString);
+
+  // If running in a browser console, this automatically copies it to your clipboard
+  if (typeof copy === 'function') {
+    copy(finalArray);
+    console.log('Copied array directly to clipboard!');
+  }
+
+  return finalArray;
+}
+
 const ivory_alerts = [
 	"IVORY SUSPECTED YOU",
 	"YOU THOUGHT HE WOULDN'T NOTICE?",
@@ -9,10 +85,105 @@ const ivory_alerts = [
 	"IVORY WARNED YOU",
 	"SUFFER THE CONSEQUENCES",
 	"ENOUGH",
-	"KNOCK IT OFF"
-]
+	"KNOCK IT OFF",
+	"STOP IT",
+	"IF YOU GET MUTED EVERYTIME, WHY EVEN CONTINUE?",
+	"YOU'RE PUSHING YOUR LUCK",
+	"IVORY IS WATCHING YOU",
+	"DID YOU REALLY THINK YOU'D GET AWAY WITH THAT?",
+	"THIS IS YOUR FINAL WARNING",
+	"BEHAVE YOURSELF",
+	"DON'T MAKE THIS WORSE FOR YOURSELF",
+	"YOU NEVER LEARN, DO YOU?",
+	"IVORY SEES EVERYTHING",
+	"STEP OUT OF LINE AGAIN AND SEE WHAT HAPPENS",
+	"YOUR EXCUSES WON'T SAVE YOU NOW",
+	"SILENCE IS YOUR ONLY OPTION",
+	"WHY ARE YOU STILL TRYING?",
+	"NO ONE IS ON YOUR SIDE",
+	"KEEP TALKING AND YOU'RE DONE",
+	"IVORY'S PATIENCE IS WEARING THIN",
+	"YOU BROUGHT THIS ON YOURSELF",
+	"CONSIDER YOURSELF WARNED",
+	"QUIT WHILE YOU'RE BEHIND",
+	"NOBODY WANTS TO HEAR IT",
+	"YOUR TIME IS RUNNING OUT",
+	"IVORY DOESN'T FORGET",
+	"THOUGHT YOU WERE CLEVER, DIDN'T YOU?",
+	"ACTIONS HAVE CONSEQUENCES",
+	"DON'T TEST IVORY",
+	"YOU'RE ON THIN ICE",
+	"ANOTHER MISTAKE AND IT'S OVER",
+	"CUT IT OUT RIGHT NOW",
+	"ARE YOU SERIOUSLY DOING THIS AGAIN?",
+	"IVORY ALREADY KNOWS",
+	"THERE IS NOWHERE TO HIDE",
+	"GIVE IT UP ALREADY",
+	"YOU'RE DIGGING YOUR OWN GRAVE",
+	"THIS WON'T END WELL FOR YOU",
+	"LEARN WHEN TO SHUT UP",
+	"IVORY HAS HAD ENOUGH OF YOU",
+	"STOP TESTING EVERYONE'S PATIENCE",
+	"YOU'RE NOT AS SNEAKY AS YOU THINK",
+	"EXPECT NO MERCY THIS TIME",
+	"HOW MANY TIMES DO YOU NEED TO BE TOLD?",
+	"IVORY ISN'T PLAYING GAMES",
+	"DROP IT. NOW.",
+	"EVERY WORD MAKES IT WORSE",
+	"YOU'VE CROSSED THE LINE",
+	"DON'T ACT SURPRISED WHEN YOU GET PUNISHED",
+	"IVORY'S EYES ARE ON YOU",
+	"NOT AGAIN...",
+	"YOU'RE ASKING FOR TROUBLE",
+	"NOBODY IS BUYING YOUR INNOCENCE",
+	"TAKE THE HINT AND BACK OFF",
+	"IVORY DOES NOT TOLERATE THIS",
+	"KEEP IT UP AND SEE WHERE IT GETS YOU",
+	"YOUR LUCK JUST RAN OUT",
+	"STOP BEFORE IT'S TOO LATE",
+	"WHY DO YOU KEEP DOING THIS?",
+	"IVORY HAS ZERO TOLERANCE",
+	"YOU'RE MAKING A HUGE MISTAKE",
+	"JUST STOP TALKING",
+	"YOU WERE TOLD NOT TO DO THAT",
+	"IVORY IS RUNNING OUT OF MERCY",
+	"NO MORE SECOND CHANCES",
+	"READ THE ROOM AND STOP",
+	"YOU'RE ONLY HURTING YOURSELF",
+	"IVORY NOTICED THAT IMMEDIATELY",
+	"DON'T SAY YOU WEREN'T WARNED",
+	"LEAVE IT ALONE",
+	"YOU CAN'T TALK YOUR WAY OUT OF THIS",
+	"IVORY IS DONE BEING NICE",
+	"WHAT PART OF 'STOP' DO YOU NOT UNDERSTAND?",
+	"YOU'RE OUT OF CHANCES",
+	"THINK BEFORE YOU SPEAK NEXT TIME",
+	"IVORY IS READY TO TAKE ACTION",
+	"THIS IS GETTING PATHETIC",
+	"WATCH YOUR STEP",
+	"YOU'RE NOT GETTING AWAY WITH THIS",
+	"IVORY REMEMBERS EVERYTHING",
+	"STAY QUIET IF YOU KNOW WHAT'S GOOD FOR YOU",
+	"ANOTHER STRIKE AGAINST YOU",
+	"DON'T PUSH IT",
+	"IVORY HAS LOGGED YOUR BEHAVIOR",
+	"ARE YOU TRYING TO GET MUTED?",
+	"END OF DISCUSSION",
+	"IVORY'S JUDGMENT IS FINAL",
+	"STOP MAKING A SCENE",
+	"YOU KNOW BETTER THAN THIS",
+	"IVORY WON'T LET THIS SLIDE",
+	"ONE MORE WORD...",
+	"FACE THE CONSEQUENCES",
+	"IVORY HAS LOCKED ONTO YOU",
+	"IT'S OVER FOR YOU",
+	"GAME OVER. IVORY WON."
+];
 
 const DEAR_GOD = [
+	generateBlacklist(['nigger']),
+	generateBlacklist(['gook']),
+	generateBlacklist(['beaner']),
     "nigger",
     "faggot",
     "n1gger",
