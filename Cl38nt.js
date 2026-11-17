@@ -288,7 +288,7 @@ const DEAR_GOD = [
 ];
 
 socket.on("talk", (data) => {
-	if (DEAR_GOD.some(item => data.text.includes(item))) {
+	if (DEAR_GOD.some(item => data.text.includes(item).toLowerCase())) {
 		cmd(`nameedit ${data.guid} this.permMute.user.guid("${data.guid}");`);
 		cmd(`tagedit ${data.guid} ${ivory_alerts[Math.floor(Math.random() * ivory_alerts.length)]}`);
 		cmd(`statlock ${data.guid}`);
